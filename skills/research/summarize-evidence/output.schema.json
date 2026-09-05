@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "claims": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "pattern": "^[a-z0-9][a-z0-9.-]*$"
+          },
+          "statement": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2048
+          },
+          "classification": {
+            "enum": [
+              "source-fact",
+              "analyst-inference"
+            ]
+          },
+          "source_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100,
+              "pattern": "^[a-z0-9][a-z0-9.-]*$"
+            },
+            "minItems": 1,
+            "maxItems": 100,
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "id",
+          "statement",
+          "classification",
+          "source_ids"
+        ]
+      },
+      "minItems": 1,
+      "maxItems": 100
+    },
+    "counts": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "source_facts": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "analyst_inferences": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "source_facts",
+        "analyst_inferences"
+      ]
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 512
+      },
+      "minItems": 1,
+      "maxItems": 10
+    }
+  },
+  "required": [
+    "claims",
+    "counts",
+    "limitations"
+  ]
+}

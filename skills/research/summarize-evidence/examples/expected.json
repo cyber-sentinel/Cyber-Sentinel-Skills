@@ -1,0 +1,27 @@
+{
+  "claims": [
+    {
+      "id": "c1",
+      "statement": "The supplied record reports three failed logins.",
+      "classification": "source-fact",
+      "source_ids": [
+        "s1"
+      ]
+    },
+    {
+      "id": "c2",
+      "statement": "The activity may require investigation.",
+      "classification": "analyst-inference",
+      "source_ids": [
+        "s1"
+      ]
+    }
+  ],
+  "counts": {
+    "source_facts": 1,
+    "analyst_inferences": 1
+  },
+  "limitations": [
+    "Classifications are supplied by the caller; authenticity and truth were not verified."
+  ]
+}

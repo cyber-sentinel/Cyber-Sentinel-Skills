@@ -1,0 +1,27 @@
+{
+  "rule_id": "draft-1",
+  "backend": "splunk-spl",
+  "expression_sha256": "505e03f2ddb767f2390fc44af367089af2dc29c7e81231834125bf85c037dd30",
+  "findings": [
+    {
+      "code": "missing-telemetry",
+      "message": "Declare the telemetry needed to evaluate the detection."
+    },
+    {
+      "code": "missing-window",
+      "message": "Declare the intended lookback window."
+    },
+    {
+      "code": "missing-test-evidence",
+      "message": "Provide references to positive and negative validation evidence."
+    },
+    {
+      "code": "missing-false-positive-notes",
+      "message": "Document expected benign matches and tuning considerations."
+    }
+  ],
+  "metadata_complete": false,
+  "limitations": [
+    "This is a metadata readiness review; query syntax, behavior and test results were not evaluated."
+  ]
+}

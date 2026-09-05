@@ -1,0 +1,82 @@
+{
+  "contract_version": "0.1.0",
+  "id": "cs.skills.detection-engineering.review-detection-spec",
+  "name": "review-detection-spec",
+  "version": "0.1.0",
+  "description": "Review a supplied detection specification for declared backend, telemetry, lookback, test references and false-positive notes. Use before backend validation; this metadata review does not parse, execute or certify a detection query.",
+  "category": "detection-engineering",
+  "domain": "cybersecurity",
+  "inputs": {
+    "schema": "input.schema.json",
+    "max_bytes": 262144
+  },
+  "outputs": {
+    "schema": "output.schema.json",
+    "max_bytes": 262144
+  },
+  "dependencies": [],
+  "required_tools": [],
+  "permissions": {
+    "capabilities": [
+      "READ",
+      "ANALYZE",
+      "GENERATE"
+    ],
+    "network": {
+      "enabled": false,
+      "hosts": []
+    },
+    "filesystem": {
+      "read": [],
+      "write": []
+    },
+    "shell": false,
+    "privilege_escalation": false,
+    "environment": [],
+    "external_services": []
+  },
+  "side_effects": [],
+  "safety": {
+    "classification": "passive-analysis",
+    "destructive": false,
+    "authorization_policy": "none-no-side-effects",
+    "secret_handling": "reject"
+  },
+  "execution": {
+    "kind": "builtin",
+    "entrypoint": "cs.skills.detection-engineering.review-detection-spec",
+    "determinism": "deterministic",
+    "ai": {
+      "required": false,
+      "providers": []
+    },
+    "source_content_execution": false
+  },
+  "provenance": [
+    {
+      "uri": "https://github.com/SigmaHQ/sigma-specification",
+      "title": "Primary technical/design reference (no material imported)",
+      "relationship": "technical-reference",
+      "reviewed_at": "2026-09-05"
+    }
+  ],
+  "supported_platforms": [
+    "linux",
+    "windows",
+    "macos"
+  ],
+  "examples": [
+    {
+      "input": "examples/input.json",
+      "expected": "examples/expected.json"
+    }
+  ],
+  "tests": [
+    "tests/test_review_detection_spec.py"
+  ],
+  "maintainers": [
+    "cyber-sentinel"
+  ],
+  "status": "experimental",
+  "license_status": "pending-owner-approval"
+}

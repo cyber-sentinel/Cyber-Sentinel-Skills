@@ -1,0 +1,21 @@
+{
+  "sources": [
+    {
+      "id": "s1",
+      "title": "Synthetic detection draft",
+      "uri": "urn:fixture:detection-1"
+    }
+  ],
+  "rule": {
+    "id": "draft-1",
+    "backend": "splunk-spl",
+    "expression": "search index=example sourcetype=example",
+    "log_sources": [],
+    "time_window_minutes": null,
+    "test_source_ids": [],
+    "false_positive_notes": "",
+    "source_ids": [
+      "s1"
+    ]
+  }
+}

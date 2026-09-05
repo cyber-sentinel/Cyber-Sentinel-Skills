@@ -1,0 +1,34 @@
+{
+  "indicators": [
+    {
+      "type": "domain",
+      "value": "example.com",
+      "source_ids": [
+        "s1"
+      ],
+      "record_ids": [
+        "i1",
+        "i2"
+      ]
+    },
+    {
+      "type": "ipv4",
+      "value": "192.0.2.4",
+      "source_ids": [
+        "s1"
+      ],
+      "record_ids": [
+        "i3"
+      ]
+    }
+  ],
+  "rejected": [
+    {
+      "id": "i4",
+      "reason": "invalid-indicator"
+    }
+  ],
+  "limitations": [
+    "Normalization makes no reputation, ownership or maliciousness judgment; no lookup was performed."
+  ]
+}

@@ -1,0 +1,524 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "contract_version": {
+      "const": "0.1.0"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 150,
+      "pattern": "^cs\\.skills\\.[a-z]+(?:-[a-z]+)*\\.[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64,
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "version": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100,
+      "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(?:-(?:0|[1-9][0-9]*|[0-9]*[A-Za-z-][0-9A-Za-z-]*)(?:\\.(?:0|[1-9][0-9]*|[0-9]*[A-Za-z-][0-9A-Za-z-]*))*)?(?:\\+[0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*)?$"
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1024
+    },
+    "category": {
+      "enum": [
+        "research",
+        "threat-intelligence",
+        "telemetry",
+        "detection-engineering",
+        "incident-response",
+        "security-engineering",
+        "repository-security"
+      ]
+    },
+    "domain": {
+      "const": "cybersecurity"
+    },
+    "inputs": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schema": {
+          "const": "input.schema.json"
+        },
+        "max_bytes": {
+          "const": 262144
+        }
+      },
+      "required": [
+        "schema",
+        "max_bytes"
+      ]
+    },
+    "outputs": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schema": {
+          "const": "output.schema.json"
+        },
+        "max_bytes": {
+          "const": 262144
+        }
+      },
+      "required": [
+        "schema",
+        "max_bytes"
+      ]
+    },
+    "dependencies": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "pattern": "^[a-z0-9][a-z0-9.-]*$"
+          },
+          "version": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(?:-(?:0|[1-9][0-9]*|[0-9]*[A-Za-z-][0-9A-Za-z-]*)(?:\\.(?:0|[1-9][0-9]*|[0-9]*[A-Za-z-][0-9A-Za-z-]*))*)?(?:\\+[0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*)?$"
+          }
+        },
+        "required": [
+          "id",
+          "version"
+        ]
+      },
+      "minItems": 0,
+      "maxItems": 10
+    },
+    "required_tools": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          },
+          "version": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          }
+        },
+        "required": [
+          "name",
+          "version"
+        ]
+      },
+      "minItems": 0,
+      "maxItems": 10
+    },
+    "permissions": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "capabilities": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "READ",
+              "ANALYZE",
+              "GENERATE",
+              "WRITE",
+              "EXECUTE",
+              "DESTRUCTIVE"
+            ]
+          },
+          "minItems": 1,
+          "maxItems": 6,
+          "uniqueItems": true
+        },
+        "network": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            },
+            "hosts": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 253,
+                "pattern": "^[a-z0-9]+(?:[.-][a-z0-9]+)*$"
+              },
+              "minItems": 0,
+              "maxItems": 20,
+              "uniqueItems": true
+            }
+          },
+          "required": [
+            "enabled",
+            "hosts"
+          ]
+        },
+        "filesystem": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "read": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 120,
+                "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._/-]*$"
+              },
+              "minItems": 0,
+              "maxItems": 20
+            },
+            "write": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 120,
+                "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._/-]*$"
+              },
+              "minItems": 0,
+              "maxItems": 20
+            }
+          },
+          "required": [
+            "read",
+            "write"
+          ]
+        },
+        "shell": {
+          "type": "boolean"
+        },
+        "privilege_escalation": {
+          "type": "boolean"
+        },
+        "environment": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "^[A-Z][A-Z0-9_]*$"
+          },
+          "minItems": 0,
+          "maxItems": 20
+        },
+        "external_services": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "name": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 64,
+                "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+              },
+              "hosts": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 253
+                },
+                "minItems": 1,
+                "maxItems": 20
+              }
+            },
+            "required": [
+              "name",
+              "hosts"
+            ]
+          },
+          "minItems": 0,
+          "maxItems": 10
+        }
+      },
+      "required": [
+        "capabilities",
+        "network",
+        "filesystem",
+        "shell",
+        "privilege_escalation",
+        "environment",
+        "external_services"
+      ]
+    },
+    "side_effects": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "capability": {
+            "enum": [
+              "WRITE",
+              "EXECUTE",
+              "DESTRUCTIVE"
+            ]
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 512
+          }
+        },
+        "required": [
+          "capability",
+          "description"
+        ]
+      },
+      "minItems": 0,
+      "maxItems": 20
+    },
+    "safety": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "classification": {
+          "enum": [
+            "passive-analysis",
+            "bounded-write",
+            "external-action",
+            "destructive"
+          ]
+        },
+        "destructive": {
+          "type": "boolean"
+        },
+        "authorization_policy": {
+          "enum": [
+            "none-no-side-effects",
+            "explicit-user-authorization"
+          ]
+        },
+        "secret_handling": {
+          "const": "reject"
+        }
+      },
+      "required": [
+        "classification",
+        "destructive",
+        "authorization_policy",
+        "secret_handling"
+      ]
+    },
+    "execution": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": [
+            "builtin",
+            "adapter"
+          ]
+        },
+        "entrypoint": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100,
+          "pattern": "^[a-z0-9][a-z0-9.-]*$"
+        },
+        "determinism": {
+          "enum": [
+            "deterministic",
+            "non-deterministic"
+          ]
+        },
+        "ai": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "required": {
+              "type": "boolean"
+            },
+            "providers": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 64,
+                "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+              },
+              "minItems": 0,
+              "maxItems": 10
+            }
+          },
+          "required": [
+            "required",
+            "providers"
+          ]
+        },
+        "source_content_execution": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "kind",
+        "entrypoint",
+        "determinism",
+        "ai",
+        "source_content_execution"
+      ]
+    },
+    "provenance": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "uri": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1024,
+            "format": "uri",
+            "pattern": "^https://"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "relationship": {
+            "enum": [
+              "design-reference",
+              "technical-reference",
+              "original"
+            ]
+          },
+          "reviewed_at": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 10,
+            "format": "date"
+          }
+        },
+        "required": [
+          "uri",
+          "title",
+          "relationship",
+          "reviewed_at"
+        ]
+      },
+      "minItems": 1,
+      "maxItems": 20
+    },
+    "supported_platforms": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "linux",
+          "windows",
+          "macos"
+        ]
+      },
+      "minItems": 1,
+      "maxItems": 3,
+      "uniqueItems": true
+    },
+    "examples": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "input": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 120,
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._/-]*$"
+          },
+          "expected": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 120,
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._/-]*$"
+          }
+        },
+        "required": [
+          "input",
+          "expected"
+        ]
+      },
+      "minItems": 1,
+      "maxItems": 20
+    },
+    "tests": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 120,
+        "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._/-]*$"
+      },
+      "minItems": 1,
+      "maxItems": 20
+    },
+    "maintainers": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 39,
+        "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]*$"
+      },
+      "minItems": 1,
+      "maxItems": 10,
+      "uniqueItems": true
+    },
+    "status": {
+      "enum": [
+        "experimental",
+        "stable",
+        "deprecated"
+      ]
+    },
+    "license_status": {
+      "const": "pending-owner-approval"
+    }
+  },
+  "required": [
+    "contract_version",
+    "id",
+    "name",
+    "version",
+    "description",
+    "category",
+    "domain",
+    "inputs",
+    "outputs",
+    "dependencies",
+    "required_tools",
+    "permissions",
+    "side_effects",
+    "safety",
+    "execution",
+    "provenance",
+    "supported_platforms",
+    "examples",
+    "tests",
+    "maintainers",
+    "status",
+    "license_status"
+  ]
+}

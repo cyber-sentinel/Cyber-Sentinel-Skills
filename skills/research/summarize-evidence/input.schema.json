@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "pattern": "^[a-z0-9][a-z0-9.-]*$"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          },
+          "uri": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1024,
+            "format": "uri",
+            "pattern": "^(?:https://|urn:)"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "uri"
+        ]
+      },
+      "minItems": 1,
+      "maxItems": 100
+    },
+    "claims": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "pattern": "^[a-z0-9][a-z0-9.-]*$"
+          },
+          "statement": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2048
+          },
+          "classification": {
+            "enum": [
+              "source-fact",
+              "analyst-inference"
+            ]
+          },
+          "source_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100,
+              "pattern": "^[a-z0-9][a-z0-9.-]*$"
+            },
+            "minItems": 1,
+            "maxItems": 100,
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "id",
+          "statement",
+          "classification",
+          "source_ids"
+        ]
+      },
+      "minItems": 1,
+      "maxItems": 100
+    }
+  },
+  "required": [
+    "sources",
+    "claims"
+  ]
+}

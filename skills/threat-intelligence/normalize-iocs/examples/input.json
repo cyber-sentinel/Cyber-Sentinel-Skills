@@ -1,0 +1,43 @@
+{
+  "sources": [
+    {
+      "id": "s1",
+      "title": "Synthetic indicator report",
+      "uri": "urn:fixture:iocs-1"
+    }
+  ],
+  "indicators": [
+    {
+      "id": "i1",
+      "type": "domain",
+      "value": "EXAMPLE[.]COM.",
+      "source_ids": [
+        "s1"
+      ]
+    },
+    {
+      "id": "i2",
+      "type": "domain",
+      "value": "example.com",
+      "source_ids": [
+        "s1"
+      ]
+    },
+    {
+      "id": "i3",
+      "type": "ipv4",
+      "value": "192.0.2.4",
+      "source_ids": [
+        "s1"
+      ]
+    },
+    {
+      "id": "i4",
+      "type": "ipv4",
+      "value": "999.1.1.1",
+      "source_ids": [
+        "s1"
+      ]
+    }
+  ]
+}
