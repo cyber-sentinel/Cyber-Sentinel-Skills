@@ -29,7 +29,7 @@ class ValidationTests(unittest.TestCase):
 
     def test_unknown_contract_and_malformed_semver_fail(self):
         schema = read_json(ROOT, 'schemas/skill-contract.schema.json')
-        for version in ['1', '1.0', '01.0.0', '1.00.0', '1.0.0-01', '1.0.0-']:
+        for version in ['1', '1.0', '01.0.0', '1.00.0', '1.0.0-01', '1.0.0-', '0.1.0\n']:
             with self.subTest(version=version), self.assertRaises(Rejected):
                 altered = {**self.manifest, 'version': version}
                 validate_data(altered, schema)
@@ -40,6 +40,16 @@ class ValidationTests(unittest.TestCase):
         schema = read_json(ROOT, 'schemas/skill-contract.schema.json')
         for version in ['0.1.0', '1.2.3-rc.1', '1.2.3+build.1', '1.2.3-0+build']:
             validate_data({**self.manifest, 'version': version}, schema)
+
+    def test_newline_suffix_is_not_part_of_a_stable_identifier(self):
+        schema = read_json(ROOT, 'schemas/skill-contract.schema.json')
+        for key in ['id', 'name']:
+            with self.subTest(field=key), self.assertRaises(Rejected):
+                validate_data({**self.manifest, key: self.manifest[key] + '\n'}, schema)
+        self.data['sources'][0]['id'] += '\n'
+        self.data['claims'][0]['source_ids'] = [self.data['sources'][0]['id']]
+        with self.assertRaisesRegex(Rejected, 'schema-rejected'):
+            run(self.skill, self.data)
 
     def test_duplicate_json_keys_nonfinite_and_deep_json_rejected(self):
         for data in [b'{"a":1,"a":2}', b'{"a":NaN}', b'{"a":Infinity}',

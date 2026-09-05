@@ -13,6 +13,9 @@ ROOT = Path(__file__).resolve().parents[1]
 MAX_BYTES = 262144
 MAX_DEPTH = 32
 SEMVER = r"^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(?:-(?:0|[1-9][0-9]*|[0-9]*[A-Za-z-][0-9A-Za-z-]*)(?:\.(?:0|[1-9][0-9]*|[0-9]*[A-Za-z-][0-9A-Za-z-]*))*)?(?:\+[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*)?$"
+# '$' alone also matches before a terminal newline. Use a portable ECMAScript
+# negative lookahead to enforce absolute end in the JSON Schema pattern.
+SEMVER += r"(?![\s\S])"
 
 
 class Rejected(ValueError):
