@@ -1,3 +1,6 @@
+# Copyright (c) 2026 Ali RahimDabagh
+# SPDX-License-Identifier: Apache-2.0
+
 import json
 import shutil
 import tempfile

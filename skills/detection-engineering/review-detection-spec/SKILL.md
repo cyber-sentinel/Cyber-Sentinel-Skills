@@ -33,3 +33,8 @@ Use explicit source IDs. Unknown references, duplicate IDs, oversized input,
 secret-like material and unauthorized capability declarations fail closed.
 Results are reproducible for the same canonical JSON input and Skill version.
 This Skill is experimental; source authenticity remains an analyst responsibility.
+
+## License and attribution
+
+Copyright (c) 2026 Ali RahimDabagh.
+Licensed under [Apache-2.0](../../../LICENSE); see the project [NOTICE](../../../NOTICE).

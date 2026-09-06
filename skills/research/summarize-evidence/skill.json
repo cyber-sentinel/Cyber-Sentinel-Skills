@@ -78,5 +78,6 @@
     "cyber-sentinel"
   ],
   "status": "experimental",
-  "license_status": "pending-owner-approval"
+  "license_status": "approved",
+  "license": "Apache-2.0"
 }

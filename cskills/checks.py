@@ -1,3 +1,6 @@
+# Copyright (c) 2026 Ali RahimDabagh
+# SPDX-License-Identifier: Apache-2.0
+
 """Repository gates. These checks complement review; they do not sandbox code."""
 
 import ast
@@ -8,6 +11,7 @@ from urllib.parse import unquote, urlsplit
 import yaml
 
 from .handlers import HANDLERS
+from .licensing import check_license_materials
 from .runtime import authorize, run
 from .validation import (ROOT, bounded_path, check_schema, check_secret_surface,
                          deny, manifests, read_bytes, read_json)
@@ -106,6 +110,9 @@ def check_workflows(root, files):
 def validate_repository(root=ROOT):
     root = Path(root)
     files = inventory(root)
+    if not {"LICENSE", "NOTICE"}.issubset(files):
+        deny("missing-license-materials")
+    check_license_materials(read_bytes(root, "LICENSE"), read_bytes(root, "NOTICE"))
     for relative in files:
         path = Path(relative)
         if relative == "BUNDLE-MANIFEST.json":

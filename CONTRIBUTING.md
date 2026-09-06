@@ -1,9 +1,11 @@
 # Contributing
 
-Foundation is currently an owner-led architecture review. Licensing terms for
-external contributions and redistribution are not yet approved; see
-[license status](LICENSE_STATUS.md). Do not add third-party source or content
-under an assumed project license.
+Foundation is currently an owner-led architecture review. Original project code,
+Skills and documentation are licensed under [Apache-2.0](LICENSE); see the recorded
+[owner decision](LICENSE_STATUS.md). Contributions intentionally submitted for
+inclusion follow section 5 of that license unless explicitly stated otherwise.
+Disclose any different terms before review. Do not add third-party source or
+content under an assumed license or claim rights you do not have.
 
 ## Who decides what enters the project
 
@@ -22,9 +24,9 @@ they still require review and explicit owner merge authorization.
 
 Preserve source attribution and provenance. Disclose upstream material and its
 exact revision and license; do not present third-party work as original work.
-Credit accepted contributors accurately. A project license, when approved, will
-govern reuse rights; these contribution rules govern acceptance into the canonical
-repository and do not add restrictions to that future license.
+Credit accepted contributors accurately. Apache-2.0 governs reuse rights; these
+contribution rules govern acceptance into the canonical repository and do not add
+restrictions to the license. Preserve applicable notices, including [NOTICE](NOTICE).
 
 Keep contributor access separate from accepting a contribution. Adding anyone
 with write, maintain or admin access requires an owner decision and review of the

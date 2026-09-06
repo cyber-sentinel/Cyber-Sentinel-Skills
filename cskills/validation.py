@@ -1,3 +1,6 @@
+# Copyright (c) 2026 Ali RahimDabagh
+# SPDX-License-Identifier: Apache-2.0
+
 """Strict data loading and offline contract validation. Never log payloads."""
 
 import json

@@ -1,3 +1,6 @@
+# Copyright (c) 2026 Ali RahimDabagh
+# SPDX-License-Identifier: Apache-2.0
+
 import copy
 import json
 import os
@@ -35,6 +38,13 @@ class ValidationTests(unittest.TestCase):
                 validate_data(altered, schema)
         with self.assertRaises(Rejected):
             validate_data({**self.manifest, 'contract_version': '9.0.0'}, schema)
+
+    def test_manifest_license_claims_match_owner_decision(self):
+        for change in [{'license': 'MIT'}, {'license_status': 'pending-owner-approval'}]:
+            with self.subTest(change=change), RepositoryCopy() as repo:
+                repo.mutate(MANIFEST_PATH, lambda m: m.update(change))
+                with self.assertRaisesRegex(Rejected, 'schema-rejected'):
+                    run(self.skill, self.data, repo.root)
 
     def test_valid_semver_prerelease_and_build_metadata(self):
         schema = read_json(ROOT, 'schemas/skill-contract.schema.json')

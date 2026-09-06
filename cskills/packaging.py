@@ -1,3 +1,6 @@
+# Copyright (c) 2026 Ali RahimDabagh
+# SPDX-License-Identifier: Apache-2.0
+
 """Deterministic review bundles. No extraction or public release operation."""
 
 import hashlib
@@ -5,6 +8,7 @@ import io
 import zipfile
 
 from .checks import inventory, validate_repository
+from .licensing import LICENSE_STATUS, PROJECT_LICENSE, check_license_materials
 from .validation import (MAX_BYTES, ROOT, canonical, decode_json, deny,
                          read_bytes)
 
@@ -19,7 +23,7 @@ def build_bundle(root=ROOT):
         deny("bundle-limit")
     manifest = {
         "format_version": "0.1.0", "purpose": "review-only",
-        "license_status": "pending-owner-approval",
+        "license_status": LICENSE_STATUS, "license": PROJECT_LICENSE,
         "files": {p: hashlib.sha256(content).hexdigest() for p, content in sorted(files.items())},
     }
     files["BUNDLE-MANIFEST.json"] = canonical(manifest) + b"\n"
@@ -55,18 +59,22 @@ def verify_bundle(data):
                         or (item.external_attr >> 16) != 0o100644):
                     deny("unsafe-bundle-member")
             manifest = decode_json(bundle.read("BUNDLE-MANIFEST.json"))
-            if (set(manifest) != {"format_version", "purpose", "license_status", "files"}
+            if (set(manifest) != {"format_version", "purpose", "license_status", "license", "files"}
                     or manifest["format_version"] != "0.1.0"
                     or manifest["purpose"] != "review-only"
-                    or manifest["license_status"] != "pending-owner-approval"
+                    or manifest["license_status"] != LICENSE_STATUS
+                    or manifest["license"] != PROJECT_LICENSE
                     or not isinstance(manifest["files"], dict)):
                 deny("invalid-bundle-manifest")
             expected = set(manifest["files"]) | {"BUNDLE-MANIFEST.json"}
             if set(names) != expected:
                 deny("bundle-members-mismatch")
+            if not {"LICENSE", "NOTICE"}.issubset(manifest["files"]):
+                deny("missing-license-materials")
             for name, digest in manifest["files"].items():
                 if hashlib.sha256(bundle.read(name)).hexdigest() != digest:
                     deny("bundle-digest-mismatch")
+            check_license_materials(bundle.read("LICENSE"), bundle.read("NOTICE"))
             return {"status": "passed", "files": len(manifest["files"]),
                     "sha256": hashlib.sha256(data).hexdigest()}
     except (zipfile.BadZipFile, KeyError, TypeError, AttributeError):

@@ -1,3 +1,6 @@
+# Copyright (c) 2026 Ali RahimDabagh
+# SPDX-License-Identifier: Apache-2.0
+
 """A fixed offline execution profile, not a sandbox for untrusted Python."""
 
 import hashlib

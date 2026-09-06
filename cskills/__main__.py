@@ -1,3 +1,6 @@
+# Copyright (c) 2026 Ali RahimDabagh
+# SPDX-License-Identifier: Apache-2.0
+
 """Host CLI: explicit bounded input, result-only stdout, payload-free errors."""
 
 import argparse
@@ -15,7 +18,7 @@ def main(argv=None):
     parser = argparse.ArgumentParser(prog="python -m cskills")
     commands = parser.add_subparsers(dest="command", required=True)
     commands.add_parser("validate", help="Validate catalog, fixtures, links, policy and packaging inputs")
-    commands.add_parser("release-check", help="Report the open owner license decision; does not release")
+    commands.add_parser("release-check", help="Validate source; report outstanding public-release approval")
     execute = commands.add_parser("run", help="Run a registered offline handler")
     execute.add_argument("skill_id")
     execute.add_argument("--workspace", required=True, type=Path)
@@ -27,7 +30,8 @@ def main(argv=None):
         if args.command == "validate":
             result = validate_repository()
         elif args.command == "release-check":
-            deny("license-owner-approval-pending")
+            validate_repository()
+            deny("release-owner-approval-pending")
         elif args.command == "run":
             result = run(args.skill_id, read_json(args.workspace, args.input))
         else:

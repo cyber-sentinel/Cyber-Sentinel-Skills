@@ -4,8 +4,11 @@ Reusable cybersecurity capabilities for agents, with inspectable playbooks for
 human analysts. Foundation v0.1 provides a versioned Skill contract, deterministic
 offline handlers, validation gates and original exemplar Skills.
 
-**Status: experimental foundation, under review. Project license: pending owner
-approval. No public release or production deployment is included.**
+**Status: experimental foundation, under review. License: [Apache-2.0](LICENSE).**
+
+Created and maintained by **Ali RahimDabagh** ([cyber-sentinel](https://github.com/cyber-sentinel)).
+Copyright and source attribution are recorded in [NOTICE](NOTICE).
+No public release or production deployment is included.
 
 ## What is implemented
 
@@ -74,7 +77,7 @@ See the [integration boundary](docs/architecture/integration.md).
 - [Security reporting](SECURITY.md)
 - [Reference and licensing research](docs/research/upstream-review.md)
 - [Open decisions and repository governance](docs/governance/decisions.md)
-- [License status](LICENSE_STATUS.md)
+- [License and attribution](LICENSE_STATUS.md)
 - [Changes](CHANGELOG.md)
 
 Build a reproducible review bundle into an existing directory with a new filename:
@@ -83,8 +86,9 @@ Build a reproducible review bundle into an existing directory with a new filenam
 python -m cskills package --output ../skills-foundation-review.zip
 ```
 
-The bundle includes source, contracts, examples, tests, docs and a SHA-256 file
+The bundle includes LICENSE, NOTICE, source, contracts, examples, tests, docs and a SHA-256 file
 inventory. It excludes the Git database and build caches. Checksums detect changes;
 they are not an authenticity signature. This command does not publish a release.
-`python -m cskills release-check` intentionally returns exit code 2 while the
-owner's license decision remains open.
+`python -m cskills release-check` validates the source and then returns exit code 2
+with `release-owner-approval-pending`. Apache-2.0 is approved; an official project
+release still requires separate owner authorization.

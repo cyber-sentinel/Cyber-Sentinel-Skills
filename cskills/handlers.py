@@ -1,3 +1,6 @@
+# Copyright (c) 2026 Ali RahimDabagh
+# SPDX-License-Identifier: Apache-2.0
+
 """Pure, reviewed handlers. Supplied evidence is data, never instructions."""
 
 import hashlib

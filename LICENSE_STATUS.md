@@ -1,19 +1,36 @@
-# Project license decision: OPEN
+# Project license decision: APPROVED
 
-No project license has been explicitly approved by the owner. Foundation adds
-no `LICENSE`, SPDX project-license assertion or license badge. The machine-readable
-status is `pending-owner-approval`; that status is not a license.
+On 2026-09-06 Ali RahimDabagh (`@cyber-sentinel`) explicitly approved unmodified
+**Apache-2.0** for the project's original code, Skills and documentation, together
+with project attribution in [NOTICE](NOTICE). The complete terms are in
+[LICENSE](LICENSE). This resolves [LIC-001](docs/governance/decisions.md).
 
-The repository is public, but public visibility must not be treated as permission
-to redistribute all content. Upstream licenses do not automatically become this
-project's license. See [GitHub's licensing guidance](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository).
+Copyright (c) 2026 Ali RahimDabagh.
+Canonical source: [Cyber-Sentinel-Skills](https://github.com/cyber-sentinel/Cyber-Sentinel-Skills).
 
-Original implementation may be prepared for the explicitly requested owner review.
-Public release, adoption of third-party code/content and representation as a
-licensed reusable distribution remain blocked pending the relevant decisions.
-The packaging command creates an original-source **review-only** bundle and
-includes this file; it does not settle redistribution rights or publish anything.
+The license text was retrieved from the
+[Apache Software Foundation](https://www.apache.org/licenses/LICENSE-2.0.txt)
+on 2026-09-06 without changing its terms. Its LF-normalized SHA-256 is
+`cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30`.
+NOTICE identifies the original project and author; it adds no license conditions.
+The [contribution rules](CONTRIBUTING.md) control acceptance into this repository.
 
-`python -m cskills release-check` fails closed until the owner decision is recorded
-in a future reviewed change. Do not change the gate merely to make it pass.
-See [ARCHITECTURE ISSUE LIC-001](docs/governance/decisions.md).
+Skill and bundle manifests declare `license_status: approved` and
+`license: Apache-2.0`. Repository validation and bundle verification require the
+approved LICENSE text and the project attribution in NOTICE. These checks are
+offline consistency gates, not proof of authorship, an authenticity signature or
+a substitute for reviewing third-party rights.
+
+User-supplied evidence and separately identified third-party material retain their
+own rights. Referenced projects and installed dependencies are not relicensed by
+this decision. No upstream Skill or implementation has been imported, and review
+bundles do not vendor dependencies. Retain the relevant license and attribution
+materials when distributing the project or individual Skills under the license.
+
+The packaging command still creates an experimental **review-only** source bundle.
+That label describes its release lifecycle; the contents are licensed as above.
+It does not publish anything. `python -m cskills release-check` first validates
+the source, then returns exit code 2 with `release-owner-approval-pending` because
+an official project release has not been authorized. License approval does not
+grant release authority. The existing conditional merge approval remains recorded
+in [governance decisions](docs/governance/decisions.md).

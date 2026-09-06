@@ -494,7 +494,10 @@
       ]
     },
     "license_status": {
-      "const": "pending-owner-approval"
+      "const": "approved"
+    },
+    "license": {
+      "const": "Apache-2.0"
     }
   },
   "required": [
@@ -519,6 +522,7 @@
     "tests",
     "maintainers",
     "status",
-    "license_status"
+    "license_status",
+    "license"
   ]
 }

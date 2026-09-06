@@ -10,29 +10,28 @@ These are a dated inspection snapshot, not an assertion about future live settin
 
 ## ARCHITECTURE ISSUE LIC-001 — project license
 
-- **Problem:** no project license is approved. The framework is intended to be
-  reusable, but a project-level redistribution license cannot be assumed.
-- **Evidence:** initial tree has no license file; repository metadata reports
+- **Initial problem:** the framework needed an explicit project license before
+  representing its original work as a licensed reusable distribution.
+- **Initial evidence:** the initial tree had no license file; repository metadata reported
   `license: null`; the owner's instruction explicitly prohibits silent selection.
 - **Alternatives:** retain the pending status for architecture review; or have the
   owner explicitly choose a license and its code/documentation scope in a subsequent
   change. MIT and Apache-2.0 are examples to evaluate, not approved defaults.
-- **Recommendation:** retain pending status for this review candidate. Record the
-  owner's exact license choice and scope before release or external material import.
-- **Consequences:** no `LICENSE`, SPDX license claim, release tag or publisher is
-  added. Manifests/bundles mark the decision pending. `release-check` rejects release
-  readiness. Original engineering work and the explicitly requested PR can proceed.
-- **Status:** OPEN, owner decision required. See [license status](../../LICENSE_STATUS.md).
+- **Approved decision (2026-09-06):** the owner explicitly approved unmodified
+  Apache-2.0 for original code, Skills and documentation, with NOTICE identifying
+  Ali RahimDabagh and the canonical repository. The decision followed explanation
+  of contribution control, permitted forks/commercial reuse and attribution limits.
+- **Consequences:** LICENSE, NOTICE and SPDX metadata are included. Validation and
+  bundle verification require those legal materials. Release authority remains
+  separate; `release-check` reports `release-owner-approval-pending`. No upstream
+  Skill/code import, release tag or publisher is authorized by this decision.
+- **Status:** RESOLVED, adopted in the Foundation review branch. See
+  [license and attribution](../../LICENSE_STATUS.md).
 
-Owner follow-up, 2026-09-06: license approval remains withheld pending clarity on
-roadmap control and source attribution. The proposal is unmodified Apache-2.0 for
-original code, Skills and documentation, with appropriate copyright attribution
-and a NOTICE identifying Ali RahimDabagh and the canonical repository. This is
-not yet adopted. Apache permits forks; its attribution conditions do not require
-a credit banner on every product screen. See the
-[license terms, sections 4 and 6](https://www.apache.org/licenses/LICENSE-2.0).
+Apache permits forks; its attribution conditions do not require a credit banner
+on every product screen. See the [license terms](https://www.apache.org/licenses/LICENSE-2.0).
 The [contribution rules](../../CONTRIBUTING.md) reserve acceptance and roadmap
-decisions to the owner independently of the eventual reuse license.
+decisions to the owner independently of reuse rights under Apache-2.0.
 
 ## ARCHITECTURE ISSUE GOV-001 — branch enforcement
 
@@ -59,10 +58,11 @@ On 2026-09-06 the owner explicitly approved conditional merge of
 [PR #1](https://github.com/cyber-sentinel/Cyber-Sentinel-Skills/pull/1), covering the
 existing Foundation v0.1 scope. This approval persists; it is not a merge event.
 Its conditions are an explicitly chosen and recorded project license, applied and
-verified main protection, and successful final review and CI. License choice and
-protection deployment are still outstanding. New material scope changes require
-their own decision. Public release remains separately unapproved; auto-merge
-remains prohibited.
+verified main protection, and successful final review and CI. The license condition
+is now fulfilled. Protection deployment still needs administrative application
+and verification; final review and CI must cover the current PR head. New material
+scope changes require their own decision. Public release remains separately
+unapproved; auto-merge remains prohibited.
 
 ## Material decision protocol
 

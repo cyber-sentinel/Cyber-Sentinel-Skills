@@ -1,3 +1,6 @@
+# Copyright (c) 2026 Ali RahimDabagh
+# SPDX-License-Identifier: Apache-2.0
+
 import hashlib
 import io
 import json
@@ -9,7 +12,9 @@ import zipfile
 from pathlib import Path
 
 from cskills.packaging import build_bundle, verify_bundle
-from cskills.validation import ROOT, Rejected
+from cskills.checks import validate_repository
+from cskills.validation import ROOT, Rejected, canonical
+from tests.common import RepositoryCopy
 
 
 class PackagingTests(unittest.TestCase):
@@ -22,11 +27,59 @@ class PackagingTests(unittest.TestCase):
         self.assertEqual(verify_bundle(self.bundle)['sha256'], hashlib.sha256(self.bundle).hexdigest())
         with zipfile.ZipFile(io.BytesIO(self.bundle)) as archive:
             manifest = json.loads(archive.read('BUNDLE-MANIFEST.json'))
-            self.assertEqual(manifest['license_status'], 'pending-owner-approval')
+            self.assertEqual(manifest['license_status'], 'approved')
+            self.assertEqual(manifest['license'], 'Apache-2.0')
             self.assertEqual(manifest['purpose'], 'review-only')
             self.assertIn('schemas/skill-contract.schema.json', manifest['files'])
             self.assertIn('cskills/runtime.py', manifest['files'])
             self.assertNotIn('.git/config', manifest['files'])
+            for name in ['LICENSE', 'NOTICE']:
+                self.assertEqual(archive.read(name), (ROOT / name).read_bytes())
+
+    def rewrite_legal_materials(self, replacements):
+        # Recompute the inventory too: a matching file digest is insufficient
+        # when a distributor has stripped the license or project attribution.
+        output = io.BytesIO()
+        with zipfile.ZipFile(io.BytesIO(self.bundle)) as source:
+            contents = {info.filename: source.read(info) for info in source.infolist()}
+            for name, content in replacements.items():
+                if content is None:
+                    del contents[name]
+                else:
+                    contents[name] = content
+            manifest = json.loads(contents['BUNDLE-MANIFEST.json'])
+            manifest['files'] = {name: hashlib.sha256(content).hexdigest()
+                                 for name, content in contents.items()
+                                 if name != 'BUNDLE-MANIFEST.json'}
+            contents['BUNDLE-MANIFEST.json'] = canonical(manifest) + b'\n'
+            with zipfile.ZipFile(output, 'w') as dest:
+                for info in source.infolist():
+                    if info.filename in contents:
+                        dest.writestr(info, contents[info.filename])
+        return output.getvalue()
+
+    def test_bundle_rejects_removed_legal_files_even_with_matching_inventory(self):
+        for name in ['LICENSE', 'NOTICE']:
+            with self.subTest(file=name), self.assertRaisesRegex(Rejected, 'missing-license-materials'):
+                verify_bundle(self.rewrite_legal_materials({name: None}))
+
+    def test_bundle_rejects_changed_license_or_stripped_attribution_with_matching_digests(self):
+        for name, content in [('LICENSE', b'a different license'),
+                              ('NOTICE', b'Cyber-Sentinel-Skills\n')]:
+            with self.subTest(file=name), self.assertRaises(Rejected):
+                verify_bundle(self.rewrite_legal_materials({name: content}))
+
+    def test_repository_rejects_missing_or_changed_legal_materials(self):
+        for name, content in [('LICENSE', None), ('NOTICE', None),
+                              ('LICENSE', b'a different license'),
+                              ('NOTICE', b'Cyber-Sentinel-Skills\n')]:
+            with self.subTest(file=name, missing=content is None), RepositoryCopy() as repo:
+                if content is None:
+                    (repo.root / name).unlink()
+                else:
+                    (repo.root / name).write_bytes(content)
+                with self.assertRaises(Rejected):
+                    validate_repository(repo.root)
 
     def altered_bundle(self, mode):
         output = io.BytesIO()
@@ -89,11 +142,11 @@ class CliTests(unittest.TestCase):
         self.assertNotIn(marker.encode(), result.stderr)
         self.assertEqual(json.loads(result.stderr)['error'], 'secret-like-field')
 
-    def test_release_gate_reports_pending_license(self):
+    def test_approved_license_does_not_grant_public_release_approval(self):
         result = subprocess.run([sys.executable, '-m', 'cskills', 'release-check'],
                                 cwd=ROOT, capture_output=True, timeout=30)
         self.assertEqual(result.returncode, 2)
-        self.assertEqual(json.loads(result.stderr)['error'], 'license-owner-approval-pending')
+        self.assertEqual(json.loads(result.stderr)['error'], 'release-owner-approval-pending')
 
     def test_packaging_never_overwrites_existing_file(self):
         with tempfile.TemporaryDirectory() as directory:

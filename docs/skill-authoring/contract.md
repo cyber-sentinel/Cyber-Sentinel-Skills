@@ -40,11 +40,18 @@ reinterpret an old manifest. `experimental` is the current lifecycle status.
 | provenance | Primary source URLs, relationship and review date; no implied license grant |
 | supported_platforms | Intended compatible hosts; CI evidence must qualify actual tested combinations |
 | examples, tests | Local input/expected pairs and repository-relative behavioral test paths |
-| maintainers, status, license_status | Ownership, lifecycle and unresolved project license decision |
+| maintainers, status | Maintenance responsibility and lifecycle |
+| license_status, license | Owner-approved license state (`approved`) and SPDX identifier (`Apache-2.0`) |
 
 The [contract schema](../../schemas/skill-contract.schema.json) is authoritative.
 Unknown fields are rejected. Contract permissiveness is not host authorization:
 the runtime applies its narrower fixed policy after schema validation.
+
+The owner-approved licensing fields finalize the unreleased `0.1.0` draft; no
+published contract version is being reinterpreted. Earlier review snapshots with
+`pending-owner-approval` metadata do not pass the current profile. Rebuild their
+review bundles from the approved revision; do not relabel an old archive. Keep
+LICENSE and NOTICE with distributed Skills and preserve applicable attribution.
 
 Source schemas may use local `#/` references only. Remote URLs, filesystem
 references, dynamic external resolution and unresolved local references are
