@@ -13,6 +13,9 @@
 - Added Linux/Windows CI with Python 3.11/3.12 and SHA-pinned GitHub actions.
 - Documented architecture, taxonomy, security model, reference research and open
   licensing/governance decisions. No Atlas/DefenseOps or MCP integration added.
+- Recorded owner approval of the main protection profile and conditional merge;
+  clarified contribution acceptance and prepared exact administrative settings.
+  License choice remains open and branch protection is not yet deployed.
 
 This is an unreleased review candidate. The heading does not declare a tag,
 merge, public release, audit certification or production readiness.

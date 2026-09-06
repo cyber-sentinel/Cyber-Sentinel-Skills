@@ -5,6 +5,34 @@ external contributions and redistribution are not yet approved; see
 [license status](LICENSE_STATUS.md). Do not add third-party source or content
 under an assumed project license.
 
+## Who decides what enters the project
+
+The canonical project is maintained by `@cyber-sentinel`. The owner decides the
+roadmap, scope, architecture and acceptance of contributions. Submitting an issue
+or PR does not grant write access, merge authority or a right to acceptance.
+Contributions may be declined when they do not fit the approved direction, even
+when their tests pass. A fork is a separate project; changes there do not change
+this repository.
+
+Before implementing a new feature, capability family, integration or architectural
+change, open a focused proposal describing the problem, scope, alternatives,
+security impact and validation plan. Wait for the owner's scope decision. Small
+bug fixes and documentation corrections may be proposed directly in a focused PR;
+they still require review and explicit owner merge authorization.
+
+Preserve source attribution and provenance. Disclose upstream material and its
+exact revision and license; do not present third-party work as original work.
+Credit accepted contributors accurately. A project license, when approved, will
+govern reuse rights; these contribution rules govern acceptance into the canonical
+repository and do not add restrictions to that future license.
+
+Keep contributor access separate from accepting a contribution. Adding anyone
+with write, maintain or admin access requires an owner decision and review of the
+[main protection profile](docs/governance/main-protection.md). CODEOWNERS alone
+does not enforce review or prevent merging.
+
+## Contribution workflow
+
 1. Read latest `main`, open branches and the [architecture decision](docs/architecture/0001-foundation.md).
 2. Create a focused feature branch from latest `main`.
 3. Propose taxonomy and contract changes before introducing new capability classes.

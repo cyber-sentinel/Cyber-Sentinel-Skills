@@ -1,2 +1,2 @@
-# Owner review is required by project governance; repository rules must enforce it.
+# Governance requires owner merge authorization. CODEOWNERS alone is not enforcement.
 * @cyber-sentinel
