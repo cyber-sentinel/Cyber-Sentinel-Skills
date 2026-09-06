@@ -1,0 +1,2 @@
+# Governance requires owner merge authorization. CODEOWNERS alone is not enforcement.
+* @cyber-sentinel

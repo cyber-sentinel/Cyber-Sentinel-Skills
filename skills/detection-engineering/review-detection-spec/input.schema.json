@@ -1,0 +1,134 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "pattern": "^[a-z0-9][a-z0-9.-]*$(?![\\s\\S])"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          },
+          "uri": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1024,
+            "format": "uri",
+            "pattern": "^(?:https://|urn:)"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "uri"
+        ]
+      },
+      "minItems": 1,
+      "maxItems": 100
+    },
+    "rule": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100,
+          "pattern": "^[a-z0-9][a-z0-9.-]*$(?![\\s\\S])"
+        },
+        "backend": {
+          "enum": [
+            "splunk-spl",
+            "microsoft-kql",
+            "elastic-kql",
+            "elastic-eql",
+            "elastic-esql",
+            "sigma"
+          ]
+        },
+        "expression": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 8192
+        },
+        "log_sources": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          },
+          "minItems": 0,
+          "maxItems": 20,
+          "uniqueItems": true
+        },
+        "time_window_minutes": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 525600
+            }
+          ]
+        },
+        "test_source_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "pattern": "^[a-z0-9][a-z0-9.-]*$(?![\\s\\S])"
+          },
+          "minItems": 0,
+          "maxItems": 100,
+          "uniqueItems": true
+        },
+        "false_positive_notes": {
+          "type": "string",
+          "minLength": 0,
+          "maxLength": 1024
+        },
+        "source_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "pattern": "^[a-z0-9][a-z0-9.-]*$(?![\\s\\S])"
+          },
+          "minItems": 1,
+          "maxItems": 100,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "id",
+        "backend",
+        "expression",
+        "log_sources",
+        "time_window_minutes",
+        "test_source_ids",
+        "false_positive_notes",
+        "source_ids"
+      ]
+    }
+  },
+  "required": [
+    "sources",
+    "rule"
+  ]
+}

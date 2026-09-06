@@ -1,0 +1,27 @@
+{
+  "sources": [
+    {
+      "id": "s1",
+      "title": "Synthetic investigation record",
+      "uri": "urn:fixture:investigation-1"
+    }
+  ],
+  "claims": [
+    {
+      "id": "c2",
+      "statement": "The activity may require investigation.",
+      "classification": "analyst-inference",
+      "source_ids": [
+        "s1"
+      ]
+    },
+    {
+      "id": "c1",
+      "statement": "The supplied record reports three failed logins.",
+      "classification": "source-fact",
+      "source_ids": [
+        "s1"
+      ]
+    }
+  ]
+}

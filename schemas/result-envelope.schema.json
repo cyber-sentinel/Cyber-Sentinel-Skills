@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "contract_version": {
+      "const": "0.1.0"
+    },
+    "skill_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 150,
+      "pattern": "^cs\\.skills\\.[a-z]+(?:-[a-z]+)*\\.[a-z0-9]+(?:-[a-z0-9]+)*$(?![\\s\\S])"
+    },
+    "skill_version": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100,
+      "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(?:-(?:0|[1-9][0-9]*|[0-9]*[A-Za-z-][0-9A-Za-z-]*)(?:\\.(?:0|[1-9][0-9]*|[0-9]*[A-Za-z-][0-9A-Za-z-]*))*)?(?:\\+[0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*)?$(?![\\s\\S])"
+    },
+    "determinism": {
+      "const": "deterministic"
+    },
+    "input_sha256": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64,
+      "pattern": "^[a-f0-9]{64}$(?![\\s\\S])"
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "pattern": "^[a-z0-9][a-z0-9.-]*$(?![\\s\\S])"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          },
+          "uri": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1024,
+            "format": "uri",
+            "pattern": "^(?:https://|urn:)"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "uri"
+        ]
+      },
+      "minItems": 1,
+      "maxItems": 100
+    },
+    "result": {
+      "type": "object"
+    }
+  },
+  "required": [
+    "contract_version",
+    "skill_id",
+    "skill_version",
+    "determinism",
+    "input_sha256",
+    "sources",
+    "result"
+  ]
+}
