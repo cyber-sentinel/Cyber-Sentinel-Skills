@@ -153,6 +153,8 @@ A documented procedure is not automatic authorization to execute it. Operators r
 
 ---
 
-**Maintainer:** Ali RahimDabagh  
-**Profile:** `cyber-sentinel`  
+**Maintainer:** Ali RahimDabagh
+
+**Profile:** `cyber-sentinel`
+
 **Role in ecosystem:** `APPLY`
