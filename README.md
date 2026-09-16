@@ -236,7 +236,10 @@ The objective is not to maximize the number of playbooks. It is to create **reli
 
 ---
 
-**Maintainer:** Ali RahimDabagh  
-**Profile:** `cyber-sentinel`  
-**Ecosystem role:** `APPLY`  
+**Maintainer:** Ali RahimDabagh
+
+**Profile:** `cyber-sentinel`
+
+**Ecosystem role:** `APPLY`
+
 **Focus:** Operational Security Methods • SOC/IR/DFIR Procedures • Security Engineering • AI-Assisted Operations • Governance
