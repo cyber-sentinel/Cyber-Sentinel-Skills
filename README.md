@@ -141,6 +141,22 @@ Cyber-Sentinel
 └── Skills      — APPLY  → Execute • Review • Reuse • Govern
 ```
 
+## Approved ATLAS Delivery Family
+
+The wider Cyber-Sentinel ecosystem now treats the following ATLAS surfaces as approved delivery scope:
+
+```text
+ATLAS
+├── Desktop: Windows / Linux / macOS
+├── CLI: Windows / Linux / macOS
+├── Web
+├── PWA: iOS Safari
+├── API
+└── Mobile: iOS / Android
+```
+
+Only Windows Desktop is currently engineering-ready. The other surfaces remain future deliverables and must preserve the same canonical, provenance, trust, and release boundaries. Desktop and Android browser access are covered by the normal Web surface; iOS Safari is the dedicated PWA target.
+
 ### ATLAS — KNOW
 
 [Cyber-Sentinel-Atlas](https://github.com/cyber-sentinel/Cyber-Sentinel-Atlas) owns governed cyber-defense knowledge, canonical relationships, deterministic retrieval, provenance, investigation context, verified offline knowledge delivery, and analyst-facing product interfaces.
