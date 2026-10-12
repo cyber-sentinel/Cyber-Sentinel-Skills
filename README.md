@@ -1,33 +1,76 @@
-# Cyber Sentinel — Skills
+<h1 align="center">Cyber-Sentinel Skills</h1>
+<p align="center"><strong>Governed Cybersecurity Operational Skills & Playbooks</strong></p>
+<p align="center">APPLY • EXECUTE • REVIEW • REUSE • GOVERN</p>
 
-Reusable cybersecurity capabilities for agents, with inspectable playbooks for
-human analysts. Foundation v0.1 provides a versioned Skill contract, deterministic
-offline handlers, validation gates and original exemplar Skills.
+<p align="center">
+  <img alt="Foundation v0.1" src="https://img.shields.io/badge/Foundation%20v0.1-under%20review-blueviolet">
+  <img alt="Offline Runtime" src="https://img.shields.io/badge/runtime-deterministic%20offline-0f766e">
+  <img alt="Python" src="https://img.shields.io/badge/Python-3.11%20%7C%203.12-informational">
+  <img alt="License" src="https://img.shields.io/badge/license-Apache--2.0-success">
+  <img alt="Release" src="https://img.shields.io/badge/public%20release-not%20authorized-important">
+</p>
 
-**Status: experimental foundation, under review. License: [Apache-2.0](LICENSE).**
+Cyber-Sentinel Skills is the **APPLY** layer of the Cyber-Sentinel ecosystem. Foundation v0.1 turns analyst operating knowledge into bounded, inspectable execution contracts that can be used consistently by humans and, where appropriate, AI-assisted workflows.
 
-Created and maintained by **Ali RahimDabagh** ([cyber-sentinel](https://github.com/cyber-sentinel)).
-Copyright and source attribution are recorded in [NOTICE](NOTICE).
-No public release or production deployment is included.
+> **Core question:** **How should this security task be performed consistently, safely, and verifiably?**
 
-## What is implemented
+This Foundation is intentionally small and explicit: deterministic handlers, bounded JSON contracts, capability-aware host authorization, evidence-oriented outputs, and no hidden network or shell execution.
 
-| Skill | Observable result | Deliberate limit |
-|---|---|---|
-| [Summarize evidence](skills/research/summarize-evidence/SKILL.md) | Ordered claims, sources, separate fact/inference counts | Does not verify the truth of supplied claims |
-| [Normalize IOCs](skills/threat-intelligence/normalize-iocs/SKILL.md) | Deduplicated indicators with merged references and invalid-record results | No DNS, reputation lookup or enrichment |
-| [Build timeline](skills/incident-response/build-timeline/SKILL.md) | Stable UTC ordering with original timestamps and source IDs | Requires known offsets; does not infer causality |
-| [Review detection specification](skills/detection-engineering/review-detection-spec/SKILL.md) | Missing metadata findings with explicit query backend identity | Does not parse, execute or certify queries |
+## Foundation Review State
 
-All four run without an LLM. Each consumes bounded JSON and produces validated
-JSON. Their registered handlers have no network, shell, environment or filesystem
-capabilities. The host CLI separately reads the explicitly selected input file.
+| Boundary | State |
+| --- | --- |
+| Foundation v0.1 implementation | **Implemented on this review branch** |
+| Deterministic offline handlers | **Implemented** |
+| Skill contract + schemas | **Implemented** |
+| Linux / Windows CI matrix | Python `3.11` / `3.12` |
+| Apache-2.0 licensing | **Approved and present on this branch** |
+| Official public release | **Not authorized** |
+| Merge to `main` | **Blocked by remaining governance control** |
+| Production certification | **Not claimed** |
 
-## Try the synthetic examples
+A green Foundation check is engineering evidence. It does **not** bypass repository governance, owner release authority, environment-specific authorization, or production change control.
 
-Use Python 3.11 or 3.12 in an isolated development environment. Run these commands
-from the repository root; dependency installation needs package-index access.
-After installation, validation and all exemplar execution work offline.
+## Implemented Skills
+
+| Skill | Observable result | Deliberate boundary |
+| --- | --- | --- |
+| [**Summarize evidence**](skills/research/summarize-evidence/SKILL.md) | ordered claims, sources, separate fact/inference counts | does not verify the truth of supplied claims |
+| [**Normalize IOCs**](skills/threat-intelligence/normalize-iocs/SKILL.md) | deduplicated indicators, merged references, invalid-record results | no DNS, reputation lookup, or external enrichment |
+| [**Build timeline**](skills/incident-response/build-timeline/SKILL.md) | stable UTC ordering with original timestamps and source IDs | requires known offsets; does not infer causality |
+| [**Review detection specification**](skills/detection-engineering/review-detection-spec/SKILL.md) | missing-metadata findings with explicit query-backend identity | does not execute or certify detection queries |
+
+All four Skills run **without an LLM**. Each consumes bounded JSON and produces validated JSON. Registered handlers have no declared network, shell, environment, external-service, destructive, or arbitrary filesystem capabilities.
+
+## Skill Contract
+
+A Skill is a **governed execution contract**, not a command list.
+
+```text
+Purpose
+  ↓
+Scope + Authorization
+  ↓
+Prerequisites + Inputs
+  ↓
+Bounded Procedure
+  ↓
+Decision Points
+  ↓
+Evidence + Verification
+  ↓
+Failure / Stop / Rollback
+  ↓
+Validated Outputs
+  ↓
+Attribution + Version History
+```
+
+The canonical machine-readable execution contract is `skill.json`. `SKILL.md` carries discovery and analyst/agent instructions. The host validates declared capabilities before invoking a reviewed built-in handler.
+
+## Quick Start
+
+Use Python 3.11 or 3.12 in an isolated development environment. Dependency installation requires package-index access; after installation, validation and exemplar execution work offline.
 
 ```bash
 python -m venv .venv
@@ -36,59 +79,135 @@ python -m venv .venv
 python -m pip install -r requirements.txt
 python -m cskills validate
 python -m unittest discover -s tests -v
-python -m cskills run cs.skills.threat-intelligence.normalize-iocs --workspace skills/threat-intelligence/normalize-iocs/examples --input input.json
 ```
 
-An installation needs only the listed Python dependencies; no Atlas deployment,
-MCP server, external security service, API credential or model account is needed.
-The [example guide](examples/README.md) explains the other invocations and output
-envelope. Errors contain stable codes, without echoing input values.
+Run an exemplar:
 
-## Architecture and trust
+```bash
+python -m cskills run \
+  cs.skills.threat-intelligence.normalize-iocs \
+  --workspace skills/threat-intelligence/normalize-iocs/examples \
+  --input input.json
+```
 
-[`skill.json`](skills/research/summarize-evidence/skill.json) is the canonical
-execution contract. `SKILL.md` carries discovery and analyst/agent instructions.
-The [architecture decision](docs/architecture/0001-foundation.md) explains the
-fixed offline profile, Python implementation and future adapter boundary.
+No ATLAS deployment, MCP server, model account, API credential, or external security service is required for the Foundation runtime.
 
-This is a host policy gate for reviewed built-in handlers, **not an OS sandbox
-for arbitrary third-party Python**. A generic agent loading only `SKILL.md` does
-not inherit this runtime's authorization guarantees. Network or mutating adapters
-require a separate architecture review, trusted authorization and enforcement
-outside the LLM. The [security model](docs/security/threat-model.md) describes
-these boundaries, filesystem assumptions and remaining risks.
+See [examples/README.md](examples/README.md) for the remaining invocations and result-envelope examples.
 
-## Scope
+## Runtime & Trust Boundary
 
-This repository owns Skill definitions, packaging, contracts, validation, tests,
-examples, security policy and documentation. It is independent of Atlas and
-DefenseOps. Atlas owns its knowledge model, ingestion, provenance, search and
-analyst workbench. DefenseOps owns detection content and Detection Forge IR.
+Foundation v0.1 is a **host policy gate for reviewed built-in handlers**. It is not an operating-system sandbox for arbitrary third-party Python.
 
-Future Atlas context or API adapters may feed bounded evidence into Skills. Skill
-output is not automatically authoritative Atlas knowledge. MCP is an optional
-future interoperability adapter, not a canonical model or Foundation dependency.
-See the [integration boundary](docs/architecture/integration.md).
+The runtime enforces the declared Foundation profile around:
 
-## Review and contribution
+- bounded JSON input/output;
+- schema validation;
+- stable error codes;
+- capability declarations;
+- rejection of undeclared network, shell, environment, external-service, destructive, and filesystem effects;
+- provenance and limitation envelopes;
+- secret/error redaction expectations;
+- deterministic fixtures and reproducible validation.
 
-- [Taxonomy and authoring contract](docs/skill-authoring/contract.md)
-- [Engineering workflow](CONTRIBUTING.md)
-- [Security reporting](SECURITY.md)
-- [Reference and licensing research](docs/research/upstream-review.md)
-- [Open decisions and repository governance](docs/governance/decisions.md)
-- [License and attribution](LICENSE_STATUS.md)
-- [Changes](CHANGELOG.md)
+A generic agent loading only `SKILL.md` does **not** inherit these runtime authorization guarantees. Future mutating or networked adapters require separate architecture review, trusted authorization, and enforcement outside the LLM.
 
-Build a reproducible review bundle into an existing directory with a new filename:
+See:
+
+- [Foundation Architecture](docs/architecture/0001-foundation.md)
+- [Integration Boundary](docs/architecture/integration.md)
+- [Threat Model](docs/security/threat-model.md)
+- [Skill Authoring Contract](docs/skill-authoring/contract.md)
+
+## Human + AI Operating Model
+
+```text
+Authorized Task
+      ↓
+Validated Skill Contract
+      ↓
+Human or AI-Assisted Execution
+      ↓
+Evidence Collection + Verification
+      ↓
+Review / Escalation / Rollback
+      ↓
+Recorded Outcome
+```
+
+AI assistance does not remove authorization, human accountability, local constraints, evidence requirements, or stop conditions.
+
+## Repository Scope
+
+This repository owns:
+
+- Skill definitions and discovery material;
+- versioned contracts and schemas;
+- deterministic built-in handlers;
+- packaging and validation;
+- synthetic examples and tests;
+- security policy and threat modeling;
+- authoring and integration documentation.
+
+It remains independent of ATLAS and DefenseOps.
+
+### ATLAS — KNOW
+
+[Cyber-Sentinel ATLAS](https://github.com/cyber-sentinel/Cyber-Sentinel-Atlas) owns canonical knowledge, ingestion, provenance, deterministic search, graph relationships, analyst investigation, and verified knowledge delivery.
+
+Future ATLAS adapters may feed bounded context into Skills. Skill output is **not automatically authoritative ATLAS knowledge**.
+
+### DefenseOps — DEFEND
+
+[Cyber-Sentinel DefenseOps](https://github.com/cyber-sentinel/Cyber-Sentinel-DefenseOps) owns detection, hunt, validation, DFIR/IR, response, deception, and defensive-automation engineering content.
+
+Skills may operationalize those artifacts without redefining their engineering ownership or validation maturity.
+
+## Review Bundle
+
+Create a reproducible review bundle with:
 
 ```bash
 python -m cskills package --output ../skills-foundation-review.zip
 ```
 
-The bundle includes LICENSE, NOTICE, source, contracts, examples, tests, docs and a SHA-256 file
-inventory. It excludes the Git database and build caches. Checksums detect changes;
-they are not an authenticity signature. This command does not publish a release.
-`python -m cskills release-check` validates the source and then returns exit code 2
-with `release-owner-approval-pending`. Apache-2.0 is approved; an official project
-release still requires separate owner authorization.
+The bundle includes license/notice material, source, contracts, examples, tests, docs, and a SHA-256 file inventory while excluding the Git database and build caches.
+
+Checksums provide integrity evidence; they are **not** an authenticity signature and do not publish a release.
+
+`python -m cskills release-check` validates the source and deliberately returns a pending-release state until owner release authority is satisfied.
+
+## Governance & Licensing
+
+Foundation v0.1 uses **Apache-2.0** for original project code, Skills, and documentation on this branch. Attribution and licensing material are recorded in:
+
+- [LICENSE](LICENSE)
+- [NOTICE](NOTICE)
+- [LICENSE_STATUS.md](LICENSE_STATUS.md)
+
+Licensing approval is not release approval.
+
+The remaining merge blocker is repository-governance deployment/verification described in [docs/governance/main-protection.md](docs/governance/main-protection.md). Until that control is satisfied, this Foundation PR remains under review and should not be represented as an official public release.
+
+## Engineering References
+
+- [Contributing](CONTRIBUTING.md)
+- [Security Reporting](SECURITY.md)
+- [Research / Upstream Review](docs/research/upstream-review.md)
+- [Governance Decisions](docs/governance/decisions.md)
+- [Changelog](CHANGELOG.md)
+
+## Design Principles
+
+1. **Explicit over implicit.**
+2. **Evidence over assumption.**
+3. **Bounded capabilities over ambient authority.**
+4. **Safe by default.**
+5. **Human-reviewable.**
+6. **Attributable and versioned.**
+7. **Offline-capable where the Foundation contract requires it.**
+8. **No ownership drift across Cyber-Sentinel products.**
+
+---
+
+<p align="center"><strong>Cyber-Sentinel Skills — APPLY with evidence.</strong></p>
+<p align="center"><sub>Created and maintained by Ali RahimDabagh</sub></p>
