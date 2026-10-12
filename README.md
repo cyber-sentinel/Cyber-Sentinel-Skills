@@ -68,19 +68,9 @@ Skills treats procedures as **versioned operating assets** rather than informal 
 
 ## Human + AI Operating Model
 
-```text
-Authorized Task
-      ↓
-Bounded Skill Contract
-      ↓
-Human or AI-Assisted Execution
-      ↓
-Evidence Collection + Verification
-      ↓
-Review / Escalation / Rollback
-      ↓
-Recorded Outcome + Lessons Learned
-```
+<p align="center">
+  <img src="assets/skills-governed-execution.svg" alt="Cyber-Sentinel Skills governed execution model with authorization, prerequisites, bounded procedure, evidence, verification, and reusable outputs" width="100%" />
+</p>
 
 AI-assisted execution does not remove authorization, environment-specific constraints, human accountability, or evidence requirements. A machine-readable procedure is **not** an autonomous-execution entitlement.
 
