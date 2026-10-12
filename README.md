@@ -120,19 +120,9 @@ See:
 
 ## Human + AI Operating Model
 
-```text
-Authorized Task
-      ↓
-Validated Skill Contract
-      ↓
-Human or AI-Assisted Execution
-      ↓
-Evidence Collection + Verification
-      ↓
-Review / Escalation / Rollback
-      ↓
-Recorded Outcome
-```
+<p align="center">
+  <img src="assets/skills-governed-execution.svg" alt="Cyber-Sentinel Skills governed execution model with authorization, prerequisites, bounded procedure, evidence, verification, and reusable outputs" width="100%" />
+</p>
 
 AI assistance does not remove authorization, human accountability, local constraints, evidence requirements, or stop conditions.
 
