@@ -1,243 +1,193 @@
-# Cyber-Sentinel-Skills
+<h1 align="center">Cyber-Sentinel Skills</h1>
+<p align="center"><strong>Governed Cybersecurity Operational Skills & Playbooks</strong></p>
+<p align="center">APPLY • EXECUTE • REVIEW • REUSE • GOVERN</p>
 
-**Governed Cybersecurity Operational Skills & Playbooks — APPLY**
+<p align="center">
+  <img alt="Foundation" src="https://img.shields.io/badge/maturity-Foundation-informational">
+  <img alt="Foundation v0.1" src="https://img.shields.io/badge/Foundation%20v0.1-under%20review-blueviolet">
+  <img alt="Safe by Default" src="https://img.shields.io/badge/design-safe--by--default-0f766e">
+  <img alt="Human Reviewable" src="https://img.shields.io/badge/operation-human--reviewable-334155">
+</p>
 
-[Cyber-Sentinel Ecosystem](https://github.com/cyber-sentinel)
+Cyber-Sentinel Skills is the **APPLY** layer of the Cyber-Sentinel ecosystem: a governed framework for turning analyst know-how into explicit, reviewable, attributable, and repeatable operating procedures for humans and, where appropriate, AI-assisted workflows.
 
-Cyber-Sentinel-Skills is the **APPLY** layer of the Cyber-Sentinel ecosystem: a governed repository for reusable cybersecurity procedures and playbooks that make security work explicit, reviewable, attributable, repeatable, and suitable for consistent execution by humans and, where appropriate, AI-assisted workflows.
+> **Core question:** **How should this security task be performed consistently, safely, and verifiably?**
 
-The product objective is to convert undocumented analyst know-how into **operational contracts** with clear scope, authorization boundaries, prerequisites, steps, evidence expectations, decision points, failure conditions, outputs, and governance.
+Skills is designed to reduce execution variance without hiding judgment, authorization, evidence requirements, or failure boundaries behind automation.
 
-> **Current maturity:** Foundation / operating-model stage
-> **Repository visibility:** Public source repository
-> **Primary audience:** SOC, Incident Response, DFIR, Threat Hunting, Security Engineering, GRC/operations, platform teams, and AI-assisted security operations
-> **Operating posture:** Vendor-neutral first, evidence-driven, safe-by-default, human-reviewable
-> **Licensing note:** No project `LICENSE` is currently published; public visibility does not grant reuse or redistribution rights
+## Current State
 
-## Commercial Positioning
+| Boundary | State |
+| --- | --- |
+| Public `main` | Foundation / operating-model baseline |
+| Foundation v0.1 implementation | **Under controlled review in [PR #1](https://github.com/cyber-sentinel/Cyber-Sentinel-Skills/pull/1)** |
+| Official release | **Not authorized** |
+| Production certification | **Not claimed** |
+| Execution philosophy | bounded, deterministic where possible, safe-by-default, human-reviewable |
+| Ecosystem role | **APPLY** |
 
-Security organizations often have strong people but weakly standardized operating knowledge. Critical procedures may exist only in senior analysts’ experience, informal chat threads, local documents, or tool-specific runbooks. That creates execution variance, onboarding friction, inconsistent evidence collection, automation risk, and operational dependency on individuals.
+The active Foundation v0.1 review branch contains a substantially deeper implementation and validation surface. That work remains separate from `main` until its governance gate is satisfied. This README does not represent unmerged candidate work as a released product.
 
-Cyber-Sentinel-Skills addresses that problem by treating procedures as **governed, reviewable operating assets** rather than informal command lists.
+## What a Skill Is
 
-For security leaders and operations teams, the intended value is:
+A Skill is not a command list. It is a **governed execution contract** for an authorized cybersecurity task.
 
-- reduce analyst-to-analyst execution variance;
-- preserve operational knowledge beyond individual team members;
-- accelerate onboarding without hiding critical judgment points;
-- make authorization, destructive actions, stop conditions, and rollback explicit;
-- standardize evidence collection and verification;
-- improve handoff between SOC, THIR, DFIR, engineering, and governance teams;
-- provide a safer foundation for AI-assisted execution;
-- turn lessons learned into reusable, versioned operating practice.
+A substantive Skill should define:
 
-**Core question:** *How should this security task be performed consistently, safely, and verifiably?*
+| Contract area | Required intent |
+| --- | --- |
+| **Purpose** | the security outcome the procedure is trying to achieve |
+| **Scope** | systems, roles, platforms, data, and environments covered |
+| **Authorization & Safety** | permissions, destructive boundaries, prohibited shortcuts |
+| **Prerequisites** | access, evidence, tools, dependencies, upstream context |
+| **Inputs** | information required before execution begins |
+| **Procedure** | ordered steps, branches, and decision points |
+| **Evidence & Verification** | what proves important actions and outcomes |
+| **Failure / Exit Conditions** | when to stop, escalate, or roll back |
+| **Outputs** | reports, artifacts, findings, tickets, or state changes |
+| **References & Attribution** | authoritative sources and provenance |
+| **Version History** | meaningful procedural evolution over time |
 
-## What a Skill Represents
+A Skill should remain understandable and reviewable without relying on undocumented institutional knowledge.
 
-A Skill is not merely a sequence of commands. It is a **governed execution contract** for an authorized cybersecurity task.
+## Why Skills Exists
 
-A substantive Skill should define, where applicable:
+Security organizations often have strong practitioners but weakly standardized operational knowledge. Important procedures may live only in senior analysts’ experience, chat threads, local notes, or tool-specific runbooks.
 
-1. **Purpose** — the intended security outcome.
-2. **Scope** — systems, platforms, telemetry, roles, and environments covered.
-3. **Authorization & Safety** — required permissions, change boundaries, destructive actions, and prohibited shortcuts.
-4. **Prerequisites** — access, tools, evidence, dependencies, and upstream context.
-5. **Inputs** — information required before execution.
-6. **Procedure** — ordered steps, branches, and decision points.
-7. **Evidence & Verification** — how important actions and outcomes are proven.
-8. **Failure / Exit Conditions** — when to stop, escalate, roll back, or request review.
-9. **Expected Outputs** — reports, artifacts, tickets, findings, detections, or state changes.
-10. **References & Attribution** — authoritative upstream material and provenance.
-11. **Version History** — meaningful procedural changes over time.
+That creates:
 
-A Skill should remain usable without relying on undocumented institutional knowledge.
+- analyst-to-analyst execution variance;
+- onboarding friction;
+- inconsistent evidence collection;
+- fragile dependency on individuals;
+- automation risk;
+- unclear authorization and stop conditions;
+- weak post-incident learning loops.
 
-## Product Boundaries
-
-Skills owns the **repeatable operating method**. It does not silently absorb the responsibilities of other Cyber-Sentinel products.
-
-Skills is **not**:
-
-- the canonical cyber-defense knowledge graph or analyst investigation platform — that is ATLAS;
-- the repository that owns detections, hunts, validation fixtures, or response engineering — that is DefenseOps;
-- a collection of undocumented shell commands;
-- a substitute for authorization, analyst judgment, or environment-specific change control;
-- a mechanism for bypassing provenance, attribution, peer review, or safety controls;
-- an autonomous-execution guarantee merely because a procedure is machine-readable.
-
-## Enterprise Use Cases
-
-The repository is designed to support operating methods across areas such as:
-
-- SOC triage and alert investigation;
-- threat hunting;
-- incident response;
-- DFIR evidence collection and analysis;
-- detection validation and tuning workflows;
-- security monitoring and telemetry verification;
-- identity and access security operations;
-- endpoint, network, cloud, and application-security operations;
-- vulnerability and exposure-management workflows;
-- AppSec and DevSecOps procedures;
-- cyber-deception operations;
-- security automation review and operational handoff;
-- post-incident validation, lessons learned, and control improvement.
-
-Specific products may be referenced where necessary, but the underlying method should remain as portable and vendor-neutral as practical.
-
-## Design Principles
-
-- **Explicit over implicit.** Critical operating knowledge should not exist only in an analyst's head.
-- **Evidence over assumption.** Important actions and decisions should be verifiable.
-- **Vendor-neutral first.** Product-specific implementation should be separated from the underlying method where practical.
-- **Safe by default.** Authorization, destructive actions, stop conditions, and rollback must be clear.
-- **Human-reviewable.** AI-agent usability must not make procedures opaque to people.
-- **Attributable.** Upstream sources, standards, and engineering artifacts retain provenance.
-- **Reusable without ownership drift.** Referencing ATLAS or DefenseOps content does not transfer ownership of those artifacts to Skills.
-- **Governed evolution.** Procedures improve through evidence, review, and operating feedback rather than uncontrolled contribution volume.
-- **Environment-aware.** Reusable procedure still requires explicit local assumptions and validation points.
+Skills treats procedures as **versioned operating assets** rather than informal memory.
 
 ## Human + AI Operating Model
 
-Skills is designed to support human operators and AI-assisted workflows without collapsing accountability.
-
 ```text
-Authorized task
+Authorized Task
       ↓
-Bounded Skill / procedure
+Bounded Skill Contract
       ↓
-Human or AI-assisted execution
+Human or AI-Assisted Execution
       ↓
-Evidence collection + verification
+Evidence Collection + Verification
       ↓
-Review / escalation / rollback as required
+Review / Escalation / Rollback
       ↓
-Recorded outcome + lessons learned
+Recorded Outcome + Lessons Learned
 ```
 
-AI-assisted execution does not remove the need for authorization, environment-specific constraints, human review, or evidence. Procedures that can change production state must make those boundaries explicit.
+AI-assisted execution does not remove authorization, environment-specific constraints, human accountability, or evidence requirements. A machine-readable procedure is **not** an autonomous-execution entitlement.
 
-## Enterprise Control Model
+## Foundation v0.1 Candidate
 
-A production-oriented Skill should be able to answer five governance questions before execution:
+The active [Foundation v0.1 review](https://github.com/cyber-sentinel/Cyber-Sentinel-Skills/pull/1) is building the executable foundation behind the operating model. Its reviewed scope includes:
+
+- versioned Skill contracts and schemas;
+- deterministic offline handlers;
+- bounded input/output envelopes;
+- explicit provenance and limitation fields;
+- capability and authorization checks;
+- synthetic positive/negative fixtures;
+- reproducible review and integrity evidence;
+- security and governance documentation;
+- original exemplar Skills for evidence summarization, IOC normalization, evidence timelines, and detection-specification review.
+
+Those capabilities are candidate-branch work until the Foundation PR is merged. The PR remains the authoritative place to inspect its exact implementation and current blocker state.
+
+## Product Boundaries
+
+Skills owns the **repeatable operating method**. It does not silently absorb the responsibilities of the other Cyber-Sentinel products.
+
+Skills is **not**:
+
+- the canonical knowledge graph or investigation platform — that is ATLAS;
+- the owner of detections, hunts, or validation fixtures — that is DefenseOps;
+- a shell-command collection;
+- a substitute for analyst judgment or production change control;
+- a mechanism for bypassing attribution, provenance, or authorization;
+- an autonomous agent runtime merely because procedures can be machine-readable.
+
+## Enterprise Use Cases
+
+Skills is intended for reusable operating methods across:
+
+`SOC Triage` • `Incident Response` • `DFIR` • `Threat Hunting` • `Detection Validation` • `Telemetry Verification` • `Identity Security` • `Endpoint / Network / Cloud Security` • `Vulnerability Management` • `AppSec / DevSecOps` • `Cyber Deception` • `Security Automation Review`
+
+The underlying method should remain vendor-neutral where practical, with product-specific implementation details separated from the durable procedure.
+
+## Design Principles
+
+1. **Explicit over implicit.** Critical operating knowledge should not live only in an analyst’s head.
+2. **Evidence over assumption.** Important actions and decisions should be verifiable.
+3. **Vendor-neutral first.** Tool-specific implementation should not erase the underlying method.
+4. **Safe by default.** Authorization, destructive actions, stop conditions, and rollback must be clear.
+5. **Human-reviewable.** Agent usability must not make procedures opaque to people.
+6. **Attributable.** Upstream sources and engineering artifacts retain provenance.
+7. **Governed evolution.** Procedures improve through evidence and review, not uncontrolled volume.
+8. **Environment-aware.** Reusability does not eliminate local validation requirements.
+
+## Enterprise Control Questions
+
+Before execution, a production-oriented Skill should be able to answer:
 
 - **Who is authorized to perform or approve this action?**
 - **What systems and data are in scope?**
 - **What evidence proves the action and outcome?**
 - **What conditions require stop, escalation, or rollback?**
-- **What record remains after execution for review or audit?**
-
-This makes Skills suitable for environments where repeatability, auditability, human oversight, and controlled automation matter as much as technical speed.
+- **What durable record remains for review or audit?**
 
 ## Cyber-Sentinel Ecosystem
 
-Cyber-Sentinel uses three contract-separated product layers:
-
 ```text
-Cyber-Sentinel
-├── ATLAS       — KNOW   → Connect • Search • Investigate • Explain
-├── DefenseOps  — DEFEND → Detect • Hunt • Validate • Respond • Automate
-└── Skills      — APPLY  → Execute • Review • Reuse • Govern
+ATLAS       — KNOW   → Connect • Search • Investigate • Explain
+DefenseOps  — DEFEND → Detect • Hunt • Validate • Respond • Automate
+Skills      — APPLY  → Execute • Review • Reuse • Govern
 ```
-
-## Approved ATLAS Delivery Family
-
-The wider Cyber-Sentinel ecosystem now treats the following ATLAS surfaces as approved delivery scope:
-
-```text
-ATLAS
-├── Desktop: Windows / Linux / macOS
-├── CLI: Windows / Linux / macOS
-├── Web
-├── PWA: iOS Safari
-├── API
-└── Mobile: iOS / Android
-```
-
-Only Windows Desktop is currently engineering-ready. The other surfaces remain future deliverables and must preserve the same canonical, provenance, trust, and release boundaries. Desktop and Android browser access are covered by the normal Web surface; iOS Safari is the dedicated PWA target.
 
 ### ATLAS — KNOW
 
-[Cyber-Sentinel-Atlas](https://github.com/cyber-sentinel/Cyber-Sentinel-Atlas) owns governed cyber-defense knowledge, canonical relationships, deterministic retrieval, provenance, investigation context, verified offline knowledge delivery, and analyst-facing product interfaces.
+[Cyber-Sentinel ATLAS](https://github.com/cyber-sentinel/Cyber-Sentinel-Atlas) owns canonical security knowledge, provenance, deterministic retrieval, relationships, investigation context, and verified offline delivery.
 
-**Core question:** *What do we know about what we are seeing — and what evidence supports it?*
+Skills may consume bounded ATLAS context, but Skill output does not automatically become canonical ATLAS truth.
 
 ### DefenseOps — DEFEND
 
-[Cyber-Sentinel-DefenseOps](https://github.com/cyber-sentinel/Cyber-Sentinel-DefenseOps) owns defensive engineering content: detections, hunts, validation assets, response engineering, DFIR/IR material, deception-oriented content, and defensive automation.
+[Cyber-Sentinel DefenseOps](https://github.com/cyber-sentinel/Cyber-Sentinel-DefenseOps) owns detection, hunt, validation, DFIR/IR, response, deception, and defensive-automation engineering artifacts.
 
-**Core question:** *What can we detect, validate, hunt, and defend — and what evidence supports that claim?*
+Skills may operationalize those artifacts, but does not silently redefine their engineering ownership or validation maturity.
 
-### Skills — APPLY
+## Governance & Release Boundary
 
-Skills owns the reusable operating procedure used to execute a security task consistently and verifiably.
+The official Skills line is maintainer-governed. Public visibility or an open PR does not grant merge authority, execution authorization, production approval, or release status.
 
-Skills may reference ATLAS knowledge and DefenseOps engineering artifacts, but it does not redefine their canonical contracts or silently copy ownership of their content.
+Until governance and release conditions are satisfied:
 
-## Governance & Contribution Model
-
-The official Cyber-Sentinel-Skills line remains **maintainer-governed**.
-
-Opening a pull request does not grant merge authority or permission to change the product direction. Contributions should preserve:
-
-- attribution and provenance;
-- technical correctness;
-- scope discipline;
-- authorization and safety boundaries;
-- ecosystem ownership boundaries;
-- version clarity;
-- reviewability and evidence expectations.
-
-Until a formal contribution-rights and project-license policy is published, contributions and reuse should be treated conservatively. The absence of a `LICENSE` file must not be interpreted as an open-source grant.
-
-## Security & Authorization Boundary
-
-Skills are intended for **authorized cybersecurity operations, controlled environments, defensive engineering, incident response, and security research**.
-
-A documented procedure is not automatic authorization to execute it. Operators remain responsible for:
-
-- legal authority;
-- organizational approval;
-- environment-specific risk;
-- production change control;
-- data handling requirements;
-- rollback and recovery readiness.
-
-Procedures that cannot establish their authorization or safety preconditions should stop or escalate rather than continue by assumption.
-
-## Product & Commercial Maturity
-
-Cyber-Sentinel-Skills is currently in a **foundation / operating-model stage**. The core product model is established, while broad production content coverage and formal public-release governance remain future work.
-
-Current maturity boundaries are explicit:
-
-- public repository visibility is for inspectability and collaboration;
-- no project `LICENSE` is currently published;
-- no claim is made that every procedure is production-certified across all environments;
-- human-review and authorization boundaries remain mandatory even for machine-readable Skills;
+- candidate implementation remains candidate implementation;
+- release claims remain fail-closed;
+- environment-specific approval remains mandatory;
+- attribution and provenance remain part of the contract;
 - product quality is measured by clarity, evidence, safety, portability, and governance — not repository volume.
-
-This is deliberate: a small set of trustworthy procedures is more valuable than a large collection of ambiguous playbooks.
 
 ## Product Direction
 
 Near-term priorities are:
 
-- establish a durable Skill schema and authoring standard;
-- build a high-quality baseline of operational procedures;
-- formalize evidence and verification patterns;
-- strengthen safe human/AI operating boundaries;
-- preserve contribution and attribution governance;
-- improve interoperability with ATLAS knowledge and DefenseOps engineering artifacts;
-- support reviewable, versioned operational improvement.
+- complete the governed Foundation v0.1 boundary;
+- establish durable Skill authoring and validation contracts;
+- expand a small, high-quality set of operational Skills;
+- strengthen evidence and verification patterns;
+- preserve safe human/AI execution boundaries;
+- improve interoperability with ATLAS and DefenseOps without ownership drift.
 
-The objective is to create **reliable operating knowledge that security teams can trust, review, adapt, automate selectively, and govern**.
+The objective is **reliable operating knowledge that teams can review, adapt, automate selectively, and govern**.
 
 ---
 
-**Maintainer:** Ali RahimDabagh
-
-**Ecosystem role:** `APPLY`
-
-**Focus:** Operational Security Methods • SOC/IR/DFIR Procedures • Security Engineering • AI-Assisted Security Operations • Governance
+<p align="center"><strong>Cyber-Sentinel Skills — APPLY with evidence.</strong></p>
+<p align="center"><sub>Maintained by Ali RahimDabagh</sub></p>
