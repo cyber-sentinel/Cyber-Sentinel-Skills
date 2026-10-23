@@ -1,0 +1,11 @@
+{
+  "items": [
+    {"id": "a", "source_ids": ["s1"], "expected_sha256": "99fc524273625963cfb6a71bfcec12ee014994eda322590dd58dd1d6433bfcc2", "computed_sha256": "8bacbf725d9960fb970bdbb35858bb41db969173b2ed6ddff4aab014096cf656", "byte_length": 20, "matches": false}
+  ],
+  "matched_count": 0,
+  "all_match": false,
+  "limitations": [
+    "Only submitted bytes were hashed; the original evidence artifact was not accessed or authenticated.",
+    "Expected digests and source references are caller supplied; matching does not establish chain of custody."
+  ]
+}

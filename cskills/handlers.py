@@ -3,12 +3,14 @@
 
 """Pure, reviewed handlers. Supplied evidence is data, never instructions."""
 
+import base64
+import binascii
 import hashlib
 import ipaddress
 import re
 from datetime import datetime, timezone
 
-from .validation import deny
+from .validation import check_secret_surface, deny
 
 
 def source_index(data):
@@ -138,10 +140,51 @@ def review_detection_spec(data):
     }
 
 
+def verify_evidence_digests(data):
+    """Check SHA-256 over supplied bytes, without reading an evidence file."""
+    known = source_index(data)
+    unique_ids(data["items"])
+    results = []
+    for item in data["items"]:
+        require_sources(item["source_ids"], known)
+        encoded = item["content_base64"]
+        if len(encoded) > 87384:
+            deny("evidence-byte-limit")
+        try:
+            content = base64.b64decode(encoded, validate=True)
+        except (binascii.Error, ValueError):
+            deny("invalid-base64")
+        if len(content) > 65536:
+            deny("evidence-byte-limit")
+        if base64.b64encode(content).decode("ascii") != encoded:
+            deny("noncanonical-base64")
+        # Catch known secret patterns hidden by the JSON base64 transport.
+        check_secret_surface(content.decode("utf-8", errors="ignore"))
+        digest = hashlib.sha256(content).hexdigest()
+        results.append({
+            "id": item["id"], "source_ids": sorted(item["source_ids"]),
+            "expected_sha256": item["expected_sha256"],
+            "computed_sha256": digest, "byte_length": len(content),
+            "matches": digest == item["expected_sha256"],
+        })
+    results.sort(key=lambda result: result["id"])
+    return {
+        "items": results,
+        "matched_count": sum(result["matches"] for result in results),
+        "all_match": all(result["matches"] for result in results),
+        "limitations": [
+            "Only submitted bytes were hashed; the original evidence artifact was not accessed or authenticated.",
+            "Expected digests and source references are caller supplied; matching does not establish chain of custody.",
+        ],
+    }
+
+
 HANDLERS = {
     "cs.skills.research.summarize-evidence": ("research", "summarize-evidence", summarize_evidence),
     "cs.skills.threat-intelligence.normalize-iocs": ("threat-intelligence", "normalize-iocs", normalize_iocs),
     "cs.skills.incident-response.build-timeline": ("incident-response", "build-timeline", build_timeline),
     "cs.skills.detection-engineering.review-detection-spec": (
         "detection-engineering", "review-detection-spec", review_detection_spec),
+    "cs.skills.incident-response.verify-evidence-digests": (
+        "incident-response", "verify-evidence-digests", verify_evidence_digests),
 }

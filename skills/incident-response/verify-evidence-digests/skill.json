@@ -1,0 +1,87 @@
+{
+  "contract_version": "0.1.0",
+  "id": "cs.skills.incident-response.verify-evidence-digests",
+  "name": "verify-evidence-digests",
+  "version": "0.1.0",
+  "description": "Compare SHA-256 digests of bounded caller-supplied evidence bytes with caller-supplied expected digests. Use for offline copy checks; do not claim source authenticity or chain of custody.",
+  "category": "incident-response",
+  "domain": "cybersecurity",
+  "inputs": {
+    "schema": "input.schema.json",
+    "max_bytes": 262144
+  },
+  "outputs": {
+    "schema": "output.schema.json",
+    "max_bytes": 262144
+  },
+  "dependencies": [],
+  "required_tools": [],
+  "permissions": {
+    "capabilities": [
+      "READ",
+      "ANALYZE",
+      "GENERATE"
+    ],
+    "network": {
+      "enabled": false,
+      "hosts": []
+    },
+    "filesystem": {
+      "read": [],
+      "write": []
+    },
+    "shell": false,
+    "privilege_escalation": false,
+    "environment": [],
+    "external_services": []
+  },
+  "side_effects": [],
+  "safety": {
+    "classification": "passive-analysis",
+    "destructive": false,
+    "authorization_policy": "none-no-side-effects",
+    "secret_handling": "reject"
+  },
+  "execution": {
+    "kind": "builtin",
+    "entrypoint": "cs.skills.incident-response.verify-evidence-digests",
+    "determinism": "deterministic",
+    "ai": {
+      "required": false,
+      "providers": []
+    },
+    "source_content_execution": false
+  },
+  "provenance": [
+    {
+      "uri": "https://csrc.nist.gov/pubs/fips/180-4/upd1/final",
+      "title": "NIST FIPS 180-4 Secure Hash Standard, SHA-256 technical reference (no material imported)",
+      "relationship": "technical-reference",
+      "reviewed_at": "2026-10-24"
+    }
+  ],
+  "supported_platforms": [
+    "linux",
+    "windows",
+    "macos"
+  ],
+  "examples": [
+    {
+      "input": "examples/input.json",
+      "expected": "examples/expected.json"
+    },
+    {
+      "input": "examples/mismatch-input.json",
+      "expected": "examples/mismatch-expected.json"
+    }
+  ],
+  "tests": [
+    "tests/test_verify_evidence_digests.py"
+  ],
+  "maintainers": [
+    "cyber-sentinel"
+  ],
+  "status": "experimental",
+  "license_status": "approved",
+  "license": "Apache-2.0"
+}

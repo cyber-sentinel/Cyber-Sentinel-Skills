@@ -46,6 +46,7 @@ even genuine approval requires a future reviewed adapter rather than a flag here
 | Path traversal / symlink escape | Absolute paths, traversal, alternate separators and symlink components rejected | Selected roots must not be concurrently attacker-writable; no claim of TOCTOU-safe OS isolation |
 | Secret disclosure | Secret-like fields/values rejected; errors omit payloads; no evidence logging | Heuristics cannot identify every unknown or encoded secret; outputs can retain legitimate sensitive evidence |
 | Misleading evidence conclusions | Sources retained; fact/inference labels preserved; limitations explicit | References and hashes do not establish source truth |
+| Digest comparison over supplied bytes | Strict canonical base64, per-item byte limit, SHA-256, caller source IDs and known-pattern scanning after decode | A matching digest does not authenticate acquisition, source artifact or custody; secret detection remains heuristic |
 | Tampered review bundle | Exact member set, safe regular paths and SHA-256 file inventory checked | Checksums are not signatures or proof of publisher identity |
 | Undeclared code/tool surface | Skill file inventory and handler AST import/primitive gate | Static inspection complements review and is not proof for arbitrary Python |
 | CI credential abuse | Read-only token scope, no project secrets, no persisted checkout credential, pinned actions | Repository settings must enforce reviews and required checks |

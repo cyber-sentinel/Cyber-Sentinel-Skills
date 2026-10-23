@@ -7,6 +7,10 @@
 - Added a fixed offline runtime, strict JSON loading, local-only schema
   references, bounded host input and payload-free errors.
 - Added four original exemplars and reviewed synthetic expected results.
+- Added a bounded offline SHA-256 evidence-byte comparison Skill with canonical
+  base64 handling, source lineage, known-secret screening and mismatch fixtures.
+- Defined a version-pinned consumer envelope proposal for future ATLAS and
+  DefenseOps adapters, without enabling either integration.
 - Added schema, policy, secret-surface, path, fixture, documentation, handler
   dependency and workflow gates with negative tests.
 - Added reproducible review ZIPs with file digests and an offline verifier.

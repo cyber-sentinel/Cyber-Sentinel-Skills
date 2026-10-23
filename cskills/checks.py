@@ -66,7 +66,7 @@ def check_links(root, files):
 
 def check_handler_surface(root):
     parsed = ast.parse(read_bytes(root, "cskills/handlers.py"))
-    allowed_imports = {"hashlib", "ipaddress", "re", "datetime", "validation"}
+    allowed_imports = {"base64", "binascii", "hashlib", "ipaddress", "re", "datetime", "validation"}
     forbidden_calls = {"open", "eval", "exec", "compile", "__import__", "getattr",
                        "setattr", "delattr", "globals", "locals", "vars", "input", "breakpoint"}
     for node in ast.walk(parsed):

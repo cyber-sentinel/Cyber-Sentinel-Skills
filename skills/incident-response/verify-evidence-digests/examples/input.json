@@ -1,0 +1,7 @@
+{
+  "sources": [{"id": "s1", "title": "Synthetic acquisition record", "uri": "urn:synthetic:evidence:1"}],
+  "items": [
+    {"id": "b", "source_ids": ["s1"], "content_base64": "c3ludGhldGljIGV2aWRlbmNlIEI=", "expected_sha256": "99fc524273625963cfb6a71bfcec12ee014994eda322590dd58dd1d6433bfcc2"},
+    {"id": "a", "source_ids": ["s1"], "content_base64": "c3ludGhldGljIGV2aWRlbmNlIEE=", "expected_sha256": "8bacbf725d9960fb970bdbb35858bb41db969173b2ed6ddff4aab014096cf656"}
+  ]
+}

@@ -9,6 +9,7 @@ python -m cskills run cs.skills.research.summarize-evidence --workspace skills/r
 python -m cskills run cs.skills.threat-intelligence.normalize-iocs --workspace skills/threat-intelligence/normalize-iocs/examples --input input.json
 python -m cskills run cs.skills.incident-response.build-timeline --workspace skills/incident-response/build-timeline/examples --input input.json
 python -m cskills run cs.skills.detection-engineering.review-detection-spec --workspace skills/detection-engineering/review-detection-spec/examples --input input.json
+python -m cskills run cs.skills.incident-response.verify-evidence-digests --workspace skills/incident-response/verify-evidence-digests/examples --input input.json
 ```
 
 The envelope contains contract/Skill versions, stable Skill ID, determinism,

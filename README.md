@@ -39,8 +39,9 @@ A green Foundation check is engineering evidence. It does **not** bypass reposit
 | [**Normalize IOCs**](skills/threat-intelligence/normalize-iocs/SKILL.md) | deduplicated indicators, merged references, invalid-record results | no DNS, reputation lookup, or external enrichment |
 | [**Build timeline**](skills/incident-response/build-timeline/SKILL.md) | stable UTC ordering with original timestamps and source IDs | requires known offsets; does not infer causality |
 | [**Review detection specification**](skills/detection-engineering/review-detection-spec/SKILL.md) | missing-metadata findings with explicit query-backend identity | does not execute or certify detection queries |
+| [**Verify evidence digests**](skills/incident-response/verify-evidence-digests/SKILL.md) | SHA-256 comparison over bounded supplied bytes with source IDs and mismatch results | does not read or authenticate the original artifact |
 
-All four Skills run **without an LLM**. Each consumes bounded JSON and produces validated JSON. Registered handlers have no declared network, shell, environment, external-service, destructive, or arbitrary filesystem capabilities.
+All five Skills run **without an LLM**. Each consumes bounded JSON and produces validated JSON. Registered handlers have no declared network, shell, environment, external-service, destructive, or arbitrary filesystem capabilities.
 
 ## Skill Contract
 

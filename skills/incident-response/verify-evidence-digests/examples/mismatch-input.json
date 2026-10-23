@@ -1,0 +1,6 @@
+{
+  "sources": [{"id": "s1", "title": "Synthetic acquisition record", "uri": "urn:synthetic:evidence:1"}],
+  "items": [
+    {"id": "a", "source_ids": ["s1"], "content_base64": "c3ludGhldGljIGV2aWRlbmNlIEE=", "expected_sha256": "99fc524273625963cfb6a71bfcec12ee014994eda322590dd58dd1d6433bfcc2"}
+  ]
+}
