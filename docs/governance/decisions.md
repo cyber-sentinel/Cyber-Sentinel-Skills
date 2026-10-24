@@ -35,9 +35,10 @@ decisions to the owner independently of reuse rights under Apache-2.0.
 
 ## ARCHITECTURE ISSUE GOV-001 — branch enforcement
 
-- **Problem:** documented review/CI requirements are not yet enforced by repository
-  protection. A user with suitable write access can bypass them.
-- **Evidence:** `main` was unprotected and repository rulesets were empty at inspection.
+- **Initial problem:** documented review/CI requirements were not enforced by
+  repository protection. A user with suitable write access could bypass them.
+- **Initial evidence:** `main` was unprotected and repository rulesets were empty
+  at the 2026-09-06 inspection.
 - **Alternatives:** owner enforces the governance using a ruleset/protection policy;
   or retains a documented manual process and accepts the bypass risk.
 - **Approved decision (2026-09-06):** require PRs and the Foundation CI checks;
@@ -46,11 +47,15 @@ decisions to the owner independently of reuse rights under Apache-2.0.
   reviewer is designated. The [exact settings](main-protection.md) distinguish
   this initial profile from future enforcement with multiple maintainers.
 - **Consequences:** `.github/CODEOWNERS` documents ownership but is not enforcement
-  on its own. No settings were silently changed. This does not prevent review of
-  the foundation PR, but should be resolved before treating governance as enforced.
-- **Status:** APPROVED, awaiting administrative configuration and verification.
-  The connected GitHub tools cannot administer branch protection. The live read
-  on 2026-09-06 still reports `main` as unprotected and an empty ruleset collection.
+  on its own. The profile enforces PRs and four Foundation checks without a
+  mandatory second reviewer; explicit owner merge authorization remains policy.
+- **Status:** VERIFIED on 2026-10-24. The existing classic rule `85291148`
+  applies exactly to `main`; its saved settings were reopened and checked against
+  [the full evidence](main-protection.md). All four required checks use GitHub
+  Actions, administrators cannot bypass, force pushes/deletions and auto-merge
+  are off, and the repository has no rulesets. The public branch API also reports
+  `protected: true`. No direct push to `main` was used as a test. This does not
+  authorize merging PR #1 or a public release.
 
 ## Owner authorization — Foundation PR #1
 
@@ -58,11 +63,13 @@ On 2026-09-06 the owner explicitly approved conditional merge of
 [PR #1](https://github.com/cyber-sentinel/Cyber-Sentinel-Skills/pull/1), covering the
 existing Foundation v0.1 scope. This approval persists; it is not a merge event.
 Its conditions are an explicitly chosen and recorded project license, applied and
-verified main protection, and successful final review and CI. The license condition
-is now fulfilled. Protection deployment still needs administrative application
-and verification; final review and CI must cover the current PR head. New material
-scope changes require their own decision. Public release remains separately
-unapproved; auto-merge remains prohibited.
+verified main protection, and successful final review and CI. The license and
+GOV-001 protection conditions are now fulfilled. Foundation run `40037385468`
+passed all four checks at head `22ee6ba1ec2f61eac6ea82ff5ba5982745421886`;
+final review, the current `README.md` merge conflict and any subsequent-head CI
+remain separate gates. PR #1 stays Draft. New material scope changes require
+their own decision. Public release remains separately unapproved; auto-merge
+remains prohibited.
 
 ## Material decision protocol
 
