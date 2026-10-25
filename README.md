@@ -28,6 +28,16 @@ Skills is designed to reduce execution variance without hiding judgment, authori
 
 The active Foundation v0.1 review branch contains a substantially deeper implementation and validation surface. That work remains separate from `main` until its governance gate is satisfied. This README does not represent unmerged candidate work as a released product.
 
+## Foundation Engineering Snapshot — 2026-10-25
+
+The **public `main` branch remains the product/operating-model baseline**. The executable Foundation v0.1 implementation lives in [Draft PR #1](https://github.com/cyber-sentinel/Cyber-Sentinel-Skills/pull/1) and has **not been merged or released**.
+
+- Current Draft PR head: `75842d9077666510c453de1194ecb8189c1e1d3f`. Its candidate branch contains **five** bounded, deterministic offline Skills: summarize evidence, normalize IOCs, build timeline, review detection specifications, and verify supplied evidence digests.
+- Exact-head [Foundation workflow #40067596169](https://github.com/cyber-sentinel/Cyber-Sentinel-Skills/actions/runs/40067596169) passed the four Linux/Windows Python 3.11/3.12 matrix jobs. Candidate documentation reports 65/65 local synthetic unit tests; that is not a Production runtime certification.
+- **GOV-001 main protection has been applied and verified according to the recorded owner/browser readback in PR #1.** The rule enforces pull requests, four required checks and non-bypass protection. The public API's `protected` flag alone is not independently sufficient to verify all rule details.
+- **Remaining merge blockers:** the candidate PR records a `README.md` conflict, final review and explicit owner merge authority. A public release requires separate approval. Do not confuse this documentation snapshot with implementation merged into `main`.
+- The `verify-evidence-digests` Skill compares bounded caller-provided data to claimed SHA-256 digests; it **does not** establish upstream artifact authenticity or chain of custody.
+
 ## What a Skill Is
 
 A Skill is not a command list. It is a **governed execution contract** for an authorized cybersecurity task.
@@ -138,6 +148,7 @@ Before execution, a production-oriented Skill should be able to answer:
 ATLAS       — KNOW   → Connect • Search • Investigate • Explain
 DefenseOps  — DEFEND → Detect • Hunt • Validate • Respond • Automate
 Skills      — APPLY  → Execute • Review • Reuse • Govern
+AION        — INTERACT → Visualize • Listen • Speak • Adapt
 ```
 
 ### ATLAS — KNOW
@@ -151,6 +162,10 @@ Skills may consume bounded ATLAS context, but Skill output does not automaticall
 [Cyber-Sentinel DefenseOps](https://github.com/cyber-sentinel/Cyber-Sentinel-DefenseOps) owns detection, hunt, validation, DFIR/IR, response, deception, and defensive-automation engineering artifacts.
 
 Skills may operationalize those artifacts, but does not silently redefine their engineering ownership or validation maturity.
+
+### AION — INTERACT
+
+[Cyber-Sentinel AION](https://github.com/cyber-sentinel/Cyber-Sentinel-AION) owns versioned Entity, visual-state and bounded bilingual interaction contracts. Skills can publish only authorized, attributable outputs through reviewed adapters; generated content is never itself an execution entitlement.
 
 ## Governance & Release Boundary
 
